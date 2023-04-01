@@ -4,6 +4,7 @@ import {mockData} from '../mockData';
 import EpisodesList from "./EpisodeList";
 import MovieList from "./MovieList";
 import SeriesList from "./SeriesList";
+import SelectionDetails from "./SelectionDetails";
 
 export interface IResults {
     title: string,
@@ -26,12 +27,14 @@ function SearchResults() {
     },[])
     return (
         <Box>
+            <SelectionDetails />
             {filmType.movies.length ?
             <MovieList movies={filmType.movies} /> : ''}
             {filmType.series.length ?
             <SeriesList series={filmType.series} /> : ''}
             {filmType.episodes.length ?
             <EpisodesList episodes={filmType.episodes} /> : ''}
+
         </Box>
     )
 }
