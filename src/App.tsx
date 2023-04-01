@@ -3,6 +3,7 @@ import './App.css';
 import { Container, Box, createTheme, ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
 import NavBar from './components/NavBar';
 import {theme} from './theme';
+import MovieSearchList from './components/MovieSearchList';
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
         }}
       />
       <NavBar />
+      <MovieSearchList />
     </ThemeProvider>
   );
 }

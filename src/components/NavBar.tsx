@@ -17,11 +17,11 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 function NavBar() {
     const theme = useTheme();
-    const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState(false);
+    const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState<boolean>(false);
 
     const smallDevice = useMediaQuery("(max-width:600px)");
     return (
-        <Box sx={{ flexGrow: 1}}>
+        <Box sx={{ flexGrow: 1, maxWidth: '100%'}}>
             <AppBar position="static" sx={{backgroundColor: `${theme.palette.background.default}`}} >
                 {showSmallDeviceSearch && smallDevice ? 
                 <Box sx={{display: 'flex'}}>
