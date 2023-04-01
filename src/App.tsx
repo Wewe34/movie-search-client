@@ -4,6 +4,7 @@ import { Container, Box, createTheme, ThemeProvider, CssBaseline, GlobalStyles }
 import NavBar from './components/NavBar';
 import {theme} from './theme';
 import MovieList from './components/MovieList';
+import SearchResults from './components/SearchResults';
 
 function App() {
   
@@ -16,7 +17,7 @@ function App() {
         }}
       />
       <NavBar />
-      <MovieList />
+      <SearchResults />
     </ThemeProvider>
   );
 }
