@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button, Typography } from "@mui/material";
-import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
-import { Selection } from "../models/selection";
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+
 
 function Favorites() {
 
-   const [favorites, setFavorites] = useState<ISelectionDetails[]>([]);
+    const favorites = useAppSelector((state) => state.favorites.favoritesList);
+
     console.log('fav', favorites)
     return (
         <Box sx={{padding:2}}>
