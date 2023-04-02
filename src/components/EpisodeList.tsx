@@ -15,13 +15,13 @@ function EpisodesList(props: IEpisodesListProps) {
             <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Episodes</Typography>
                <Box sx={{display: 'flex', overflowX:'auto'}}>
                 {episodes.map((episode:any, index: number) => {
-                    return  <Box key={index} sx={{display: 'flex', padding: 2}}> 
+                    return  <Box key={index} sx={{padding: 2, backgroundColor:'black'}}> 
                                 <Box component="img"
                                     sx={{
                                     maxHeight: { xs: 200, md: 300 },
                                     maxWidth: { xs: 100, md: 175 },
                                     }}
-                                    src={episode.Poster}
+                                    src={episode.Poster != "N/A" ? episode.Poster : 'no-poster-available.jpeg'}
                                 />
                             </Box>
                 })}

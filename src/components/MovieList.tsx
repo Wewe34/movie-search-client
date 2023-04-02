@@ -16,14 +16,16 @@ function MovieList(props: IMovieListProps) {
             <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Movies</Typography>
                <Box sx={{display: 'flex', overflowX:'auto'}}>
                 {movies.map((movie:any, index: number) => {
-                    return  <Box key={index} sx={{display: 'flex', padding: 2}}> 
+                    return  <Box key={index} sx={{padding: 2, backgroundColor:'black'}}>
                                 <Box component="img"
                                     sx={{
                                     maxHeight: { xs: 200, md: 300 },
                                     maxWidth: { xs: 100, md: 175 },
                                     }}
-                                    src={movie.Poster}
+                                    src={movie.Poster != "N/A" ? movie.Poster : 'no-poster-available.jpeg'}
                                 />
+                                <Typography color="primary">{movie.Title}</Typography>
+                                <Typography color="primary">{movie.Year}</Typography>
                             </Box>
                 })}
             </Box>

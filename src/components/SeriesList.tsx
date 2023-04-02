@@ -15,13 +15,13 @@ function SeriesList(props: ISeriesListProps) {
             <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Series</Typography>
                <Box sx={{display: 'flex', overflowX:'auto'}}>
                 {series.map((show:any, index: number) => {
-                    return  <Box key={index} sx={{display: 'flex', padding: 2}}> 
+                    return  <Box key={index} sx={{padding: 2, backgroundColor:'black'}}> 
                                 <Box component="img"
                                     sx={{
                                     maxHeight: { xs: 200, md: 300 },
                                     maxWidth: { xs: 100, md: 175 },
                                     }}
-                                    src={show.Poster}
+                                    src={show.Poster != "N/A" ? show.Poster : 'no-poster-available.jpeg'}
                                 />
                             </Box>
                 })}
