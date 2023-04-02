@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import {mockData} from '../mockData';
-import EpisodesList from "./EpisodeList";
-import MovieList from "./MovieList";
-import SeriesList from "./SeriesList";
-import SelectionDetails from "./SelectionDetails";
-import { resourceLimits } from "worker_threads";
+import SeriesList from "./SearchLists";
 
 export interface IResults {
     Title: string,
@@ -21,7 +16,7 @@ interface SearchResultsProps {
 
 
 function SearchResults(props: SearchResultsProps) {
-    const [filmType, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
+    const [filmTypes, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
     const [results, setResults] = useState<IResults[]>([]);
     const {searchValue} = props;
     
@@ -45,14 +40,8 @@ function SearchResults(props: SearchResultsProps) {
     },[searchValue])
     return (
         <Box>
-            <SelectionDetails />
-            {filmType.movies.length ?
-            <MovieList movies={filmType.movies} /> : ''}
-            {filmType.series.length ?
-            <SeriesList series={filmType.series} /> : ''}
-            {filmType.episodes.length ?
-            <EpisodesList episodes={filmType.episodes} /> : ''}
-
+            {filmTypes ?
+            <SeriesList list={filmTypes} /> : ''}
         </Box>
     )
 }
