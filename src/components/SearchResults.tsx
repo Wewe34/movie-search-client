@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import SeriesList from "./SearchLists";
+import SearchLists from "./SearchLists";
 
 export interface IResults {
     Title: string,
@@ -41,7 +41,7 @@ function SearchResults(props: SearchResultsProps) {
     return (
         <Box>
             {filmTypes ?
-            <SeriesList list={filmTypes} /> : ''}
+            <SearchLists list={filmTypes} /> : ''}
         </Box>
     )
 }

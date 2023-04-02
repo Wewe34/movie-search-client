@@ -43,23 +43,24 @@ interface ISelectionDetailsProps {
         imdbID: string;
         Type: string
     },
-    open: boolean;
-    toggleOpen: Dispatch<SetStateAction<boolean>>
+    open?: boolean;
+    toggleOpen?: Dispatch<SetStateAction<boolean>>
 }
 
 function SelectionDetails(props: ISelectionDetailsProps) {
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
+
     return (
         <Dialog PaperProps={{
                     style: {
                     backgroundColor: `${theme.palette.background.default}`,
                     },
                 }}
-                open={open} 
+                open={open ? open : false} 
                 fullScreen={true}
                 sx={{padding: 2}}>
-            <CancelIcon onClick={() => toggleOpen(false)} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
+            <CancelIcon onClick={() => toggleOpen ? toggleOpen(false) : ''} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
             <Typography variant="h3" color='primary' sx={{padding: 2}}>{selection.Title}</Typography>
             <Box sx={{display: 'flex', flexWrap:"wrap", justifyContent: "space-between"}}>
                 <Typography variant="h6" color='primary' sx={{padding: 2}}>
@@ -98,7 +99,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                             </Box>
                         </Box>
                         <Box sx={{display: 'flex'}}>
-                            <Box sx={{display: 'flex', paddingRight: 6}}>
+                            <Box sx={{display: 'flex', paddingRight: 6}} onClick={() => ''}>
                                 <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}}  />
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>

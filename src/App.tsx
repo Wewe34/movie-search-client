@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Container, Box, createTheme, ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
+import { ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
 import NavBar from './components/NavBar';
 import {theme} from './theme';
 import RecentlyViewed from './components/RecentlyViewed';
@@ -8,7 +8,9 @@ import Routes from './routes';
 
 
 function App() {
-  
+
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
