@@ -8,6 +8,7 @@ import SearchResults from './components/SearchResults';
 import RecentlyViewed from './components/RecentlyViewed';
 import Favorites from './components/Favorites';
 import Watchlist from './components/Watchlist';
+import Routes from './routes';
 
 function App() {
   
@@ -20,7 +21,7 @@ function App() {
         }}
       />
       <NavBar />
-      <SearchResults />
+      <Routes />
       <RecentlyViewed />
     </ThemeProvider>
   );
