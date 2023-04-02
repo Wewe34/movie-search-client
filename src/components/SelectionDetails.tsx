@@ -9,7 +9,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import { yellow, pink, red } from "@mui/material/colors";
 
 function SelectionDetails() {
-    const [dialogOpen, setDialogOpen] = useState<boolean>(true);
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const [genres, setGenres] = useState(['animation', 'cartoon']);
     const theme = useTheme();
     return (

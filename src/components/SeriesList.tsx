@@ -21,7 +21,7 @@ function SeriesList(props: ISeriesListProps) {
                                     maxHeight: { xs: 200, md: 300 },
                                     maxWidth: { xs: 100, md: 175 },
                                     }}
-                                    src={show.poster}
+                                    src={show.Poster}
                                 />
                             </Box>
                 })}
