@@ -12,12 +12,14 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
+import HamburgerDrawer from "./HamburgerDrawer";
 
 
 
 function NavBar() {
     const theme = useTheme();
     const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState<boolean>(false);
+    const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
 
     const smallDevice = useMediaQuery("(max-width:600px)");
     return (
@@ -36,8 +38,10 @@ function NavBar() {
                             fontSize="large"
                             color='primary'
                             sx={{ mr: 2, alignSelf: 'center' }}
+                            onClick={() => setDrawerOpen(true)}
                         >
                         </MenuIcon>
+                        <HamburgerDrawer isOpen={drawerOpen} closeDrawer={setDrawerOpen}/>
                         <Typography variant="h5" component="div" color='secondary' sx={{mr: 2, minWidth: '30px' }} >
                             MovieXpress
                         </Typography>

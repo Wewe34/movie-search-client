@@ -1,13 +1,26 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box, Drawer } from "@mui/material";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 
-function HamburgerDrawer() {
+interface IHamburgerDrawerProps {
+    isOpen: boolean,
+    closeDrawer: Dispatch<SetStateAction<boolean>>
+}
+
+function HamburgerDrawer(props: IHamburgerDrawerProps) {
+
+    const {isOpen, closeDrawer} = props;
 
     return (
-        <Box>
-            
-        </Box>
+        <>
+            <Drawer
+                anchor="left"
+                open={isOpen}
+                onClose={() => closeDrawer(false)}
+                >
+                Hello
+            </Drawer>
+        </>
     )
 }
 
