@@ -5,6 +5,7 @@ import EpisodesList from "./EpisodeList";
 import MovieList from "./MovieList";
 import SeriesList from "./SeriesList";
 import SelectionDetails from "./SelectionDetails";
+import { resourceLimits } from "worker_threads";
 
 export interface IResults {
     title: string,
@@ -13,18 +14,22 @@ export interface IResults {
     type: string
 }
 
+interface SearchResultsProps {
+    searchValue: string;
+}
 
 
-function SearchResults() {
+function SearchResults(props: SearchResultsProps) {
     const [filmType, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
 
-    //getmovies
+    const {searchValue} = props;
+
     useEffect(() => {
         let typeMovie = mockData.filter((movie) => movie.type === 'movie');
         let typeSeries = mockData.filter((series) => series.type === 'series');
         let typeEpisode = mockData.filter((episode) => episode.type === 'episode');
         setFilmType({movies: typeMovie, series: typeSeries, episodes: typeEpisode})
-    },[])
+    },[searchValue])
     return (
         <Box>
             <SelectionDetails />
