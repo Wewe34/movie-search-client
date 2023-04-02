@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import {mockData} from '../mockData';
-import EpisodesList from "./EpisodeList";
-import MovieList from "./MovieList";
-import SeriesList from "./SeriesList";
-import SelectionDetails from "./SelectionDetails";
-import { resourceLimits } from "worker_threads";
+import SeriesList from "./SearchLists";
 
 export interface IResults {
     Title: string,

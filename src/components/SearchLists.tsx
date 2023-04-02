@@ -9,7 +9,7 @@ interface IListProps {
     list: {movies: IResults[], series: IResults[], episodes: IResults[]}
 }
 
-function SeriesList(props: IListProps) {
+function SearchLists(props: IListProps) {
     const [selection, setSelection] = useState<ISelectionDetails>({
         Title: '',
         Year: '',
@@ -102,4 +102,4 @@ function SeriesList(props: IListProps) {
     )
 }
 
-export default SeriesList;
+export default SearchLists;

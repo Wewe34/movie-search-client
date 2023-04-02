@@ -1,7 +1,6 @@
 import React, {Dispatch, SetStateAction, useState} from "react";
 import { Typography, Dialog, useTheme, Button } from "@mui/material";
 import { Box } from "@mui/system";
-import {mockData} from '../mockData';
 import CancelIcon from '@mui/icons-material/Cancel';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import StarRateIcon from '@mui/icons-material/StarRate';
@@ -49,7 +48,6 @@ interface ISelectionDetailsProps {
 }
 
 function SelectionDetails(props: ISelectionDetailsProps) {
-    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
     return (
