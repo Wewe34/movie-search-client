@@ -8,6 +8,24 @@ import StarRateIcon from '@mui/icons-material/StarRate';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { yellow, pink, red } from "@mui/material/colors";
 
+export interface ISelectionDetails {
+    Title: string;
+    Year: string;
+    Rated: string;
+    Released: string;
+    Runtime: string;
+    Genre: string;
+    Director: string;
+    Writer: string;
+    Actors: string;
+    Plot: string;
+    Poster: string;
+    Ratings: {Source: string, Value: string}[]
+    imdbVotes: string;
+    imdbID: string;
+    Type: string
+}
+
 function SelectionDetails() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
     const [genres, setGenres] = useState(['animation', 'cartoon']);
