@@ -5,12 +5,12 @@ import {IResults} from './SearchResults';
 
 function Watchlist() {
 
-    const [watchlist, setWatchlist] = useState<IResults[]>(mockData);
+    //const [watchlist, setWatchlist] = useState<IResults[]>(mockData);
 
     return (
         <Box sx={{padding:2}}>
             <Typography variant="h4" color="primary" sx={{paddingTop:3, paddingLeft:1}} >My Watchlist</Typography>
-            {watchlist.length ? 
+            {/* {watchlist.length ? 
             <Box>
                 <Box sx={{display: 'flex', flexWrap:"wrap"}}>
                         {watchlist.map((watchlistItem:any, index: number) => {
@@ -29,7 +29,7 @@ function Watchlist() {
                         <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
                     </Box>
             </Box>
-            : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You have no watchlist films</Typography> }
+            : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You have no watchlist films</Typography> } */}
         </Box>
     )
 }

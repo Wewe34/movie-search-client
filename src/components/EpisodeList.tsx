@@ -21,7 +21,7 @@ function EpisodesList(props: IEpisodesListProps) {
                                     maxHeight: { xs: 200, md: 300 },
                                     maxWidth: { xs: 100, md: 175 },
                                     }}
-                                    src={episode.poster}
+                                    src={episode.Poster}
                                 />
                             </Box>
                 })}

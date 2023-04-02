@@ -5,12 +5,12 @@ import {IResults} from './SearchResults';
 
 function Favorites() {
 
-    const [favorites, setFavorites] = useState<IResults[]>(mockData);
+   // const [favorites, setFavorites] = useState<IResults[]>(mockData);
 
     return (
         <Box sx={{padding:2}}>
             <Typography variant="h4" color="primary" sx={{paddingTop:3, paddingLeft:1}} >My Favorites</Typography>
-            {favorites.length ? 
+            {/* {favorites.length ? 
             <Box>
                 <Box sx={{display: 'flex', flexWrap:"wrap"}}>
                         {favorites.map((favorite:any, index: number) => {
@@ -29,7 +29,7 @@ function Favorites() {
                         <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
                     </Box>
             </Box>
-            : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You currently have no favorites.</Typography> }
+            : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You currently have no favorites.</Typography> } */}
         </Box>
     )
 }

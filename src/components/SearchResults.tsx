@@ -8,10 +8,11 @@ import SelectionDetails from "./SelectionDetails";
 import { resourceLimits } from "worker_threads";
 
 export interface IResults {
-    title: string,
-    poster: string,
-    year: number,
-    type: string
+    Title: string,
+    Year: string,
+    imdbID: string,
+    Poster: string,
+    Type: string
 }
 
 interface SearchResultsProps {
@@ -21,14 +22,26 @@ interface SearchResultsProps {
 
 function SearchResults(props: SearchResultsProps) {
     const [filmType, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
-
+    const [results, setResults] = useState<IResults[]>([]);
     const {searchValue} = props;
-
+    
     useEffect(() => {
-        let typeMovie = mockData.filter((movie) => movie.type === 'movie');
-        let typeSeries = mockData.filter((series) => series.type === 'series');
-        let typeEpisode = mockData.filter((episode) => episode.type === 'episode');
-        setFilmType({movies: typeMovie, series: typeSeries, episodes: typeEpisode})
+        const getMovies = async () => {
+            try {
+                const response = await fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_APIKEY}`);
+                const data = await response.json();
+                if (data.Search && data.Search.length > 0) {
+                    setResults(data.Search);
+                    let typeMovie = results.filter((movie: IResults) => movie.Type === 'movie');
+                    let typeSeries = results.filter((series: IResults) => series.Type === 'series');
+                    let typeEpisode = results.filter((episode: IResults) => episode.Type === 'episode');
+                    setFilmType({movies: typeMovie, series: typeSeries, episodes: typeEpisode})
+                }     
+            } catch (error) {
+                throw error;
+            }
+        }
+        getMovies()
     },[searchValue])
     return (
         <Box>

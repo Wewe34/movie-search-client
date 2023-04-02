@@ -22,7 +22,7 @@ function MovieList(props: IMovieListProps) {
                                     maxHeight: { xs: 200, md: 300 },
                                     maxWidth: { xs: 100, md: 175 },
                                     }}
-                                    src={movie.poster}
+                                    src={movie.Poster}
                                 />
                             </Box>
                 })}
