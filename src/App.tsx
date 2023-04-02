@@ -6,6 +6,8 @@ import {theme} from './theme';
 import MovieList from './components/MovieList';
 import SearchResults from './components/SearchResults';
 import RecentlyViewed from './components/RecentlyViewed';
+import Favorites from './components/Favorites';
+import Watchlist from './components/Watchlist';
 
 function App() {
   
