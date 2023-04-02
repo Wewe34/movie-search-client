@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import {theme} from './theme';
 import MovieList from './components/MovieList';
 import SearchResults from './components/SearchResults';
+import RecentlyViewed from './components/RecentlyViewed';
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
       />
       <NavBar />
       <SearchResults />
+      <RecentlyViewed />
     </ThemeProvider>
   );
 }
