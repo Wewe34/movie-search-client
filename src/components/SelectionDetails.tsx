@@ -3,6 +3,10 @@ import { Typography, Dialog, useTheme, Button } from "@mui/material";
 import { Box } from "@mui/system";
 import {mockData} from '../mockData';
 import CancelIcon from '@mui/icons-material/Cancel';
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import StarRateIcon from '@mui/icons-material/StarRate';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { yellow, pink } from "@mui/material/colors";
 
 function SelectionDetails() {
     const [dialogOpen, setDialogOpen] = useState<boolean>(true);
@@ -15,7 +19,8 @@ function SelectionDetails() {
                     },
                 }}
                 open={dialogOpen} 
-                fullScreen={true}>
+                fullScreen={true}
+                sx={{padding: 2}}>
             <CancelIcon onClick={() => setDialogOpen(false)} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
             <Typography variant="h3" color='primary' sx={{padding: 2}}>{mockData[0].title}</Typography>
             <Typography variant="h6" color='primary' sx={{padding: 2}}>Movie | 2023 | PG | 60mins </Typography>
@@ -33,7 +38,39 @@ function SelectionDetails() {
                 paddingLeft: 2
                 }}
                 src={'shrek.JPG'}/>
-            
+            <Typography variant="h6" color='primary' sx={{padding: 2}}>Your name and email address were configured automatically based
+                on your username and hostname. Please check that they are accurate.
+                You can suppress this message by setting them explicitly. Run the
+                following command and follow the instructions in your editor to edit
+                your configuration file
+            </Typography>
+            <Box sx={{display: 'flex', marginBottom: 3}}>
+                <Box sx={{display: "flex", paddingRight: 3}}>
+                    <StarRateIcon fontSize="large" sx={{color: yellow[500], marginLeft: 2, marginRight: 1}}/>
+                    <Box sx={{display: "flex", alignSelf: 'flex-end'}}>
+                        <Typography variant="h5" color="primary" sx={{marginRight:.5}}>8.1/10</Typography>
+                        <Typography variant="body2" color="primary" sx={{alignSelf: 'center'}}>180k</Typography>
+                    </Box>
+                </Box>
+                <Box sx={{display: 'flex'}}>
+                    <ThumbUpAltOutlinedIcon fontSize="large" color="primary" sx={{marginLeft: 2, marginRight: 1}}/>
+                    <Typography variant="h5" color="primary" sx={{marginRight:.5, alignSelf: "center"}}>Rate</Typography>
+                </Box>
+            </Box>
+            <Box sx={{display: 'flex'}}>
+                <Box sx={{display: 'flex', paddingRight: 6}}>
+                    <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}}  />
+                    <Typography variant="h5" sx={{color: pink[400], marginRight:.5, alignSelf: "center"}}>Favorite</Typography>
+                </Box>
+                <Box>
+                    <Button variant='outlined' color="info" size="small" fullWidth={false} sx={{padding: 1, marginRight: 1, backgroundColor: 'whitesmoke'}}>+ Watchlist</Button>
+                </Box>
+            </Box>
+            <Box sx={{paddingY: 4, paddingX: 2, color:'white'}}>
+                <Typography>Top Cast: Cece Winans, Tom Hanks</Typography>
+                <Typography>Directors: Timmy Culley, Yolanda Applen</Typography>
+                <Typography>Writers: Helen Donty, Jackie Simmons</Typography>
+            </Box>
         </Dialog>
     )
 }
