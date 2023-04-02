@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Dispatch, SetStateAction, useState} from "react";
 import { Typography, Dialog, useTheme, Button } from "@mui/material";
 import { Box } from "@mui/system";
 import {mockData} from '../mockData';
@@ -26,25 +26,48 @@ export interface ISelectionDetails {
     Type: string
 }
 
-function SelectionDetails() {
+interface ISelectionDetailsProps {
+    selection: {
+        Title: string;
+        Year: string;
+        Rated: string;
+        Released: string;
+        Runtime: string;
+        Genre: string;
+        Director: string;
+        Writer: string;
+        Actors: string;
+        Plot: string;
+        Poster: string;
+        Ratings: {Source: string, Value: string}[]
+        imdbVotes: string;
+        imdbID: string;
+        Type: string
+    },
+    open: boolean;
+    toggleOpen: Dispatch<SetStateAction<boolean>>
+}
+
+function SelectionDetails(props: ISelectionDetailsProps) {
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-    const [genres, setGenres] = useState(['animation', 'cartoon']);
     const theme = useTheme();
+    const {selection, open, toggleOpen} = props;
     return (
         <Dialog PaperProps={{
                     style: {
                     backgroundColor: `${theme.palette.background.default}`,
                     },
                 }}
-                open={dialogOpen} 
+                open={open} 
                 fullScreen={true}
                 sx={{padding: 2}}>
-            <CancelIcon onClick={() => setDialogOpen(false)} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
-            <Typography variant="h3" color='primary' sx={{padding: 2}}>{mockData[0].title}</Typography>
+            <CancelIcon onClick={() => toggleOpen(false)} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
+            <Typography variant="h3" color='primary' sx={{padding: 2}}>{selection.Title}</Typography>
             <Box sx={{display: 'flex', flexWrap:"wrap", justifyContent: "space-between"}}>
-                <Typography variant="h6" color='primary' sx={{padding: 2}}>Movie | 2023 | PG | 60mins </Typography>
+                <Typography variant="h6" color='primary' sx={{padding: 2}}>
+                    {`${selection.Type} | ${selection.Year} | ${selection.Rated} | ${selection.Runtime}` }</Typography>
                 <Box sx={{display:"flex", paddingX: 2, paddingBottom: 2}}>
-                    {genres.map((genre, index) => {
+                    {selection.Genre.split(', ').map((genre, index) => {
                         return <Typography color="secondary" key={index} sx={{border: `solid 1px ${red[900]}`, height:"fit-content", padding: 1, borderRadius: 2, marginRight: 2}}>{genre}</Typography>
                     })}
                 </Box>
@@ -56,22 +79,19 @@ function SelectionDetails() {
                     maxWidth: { xs: 200, md: 275 },
                     paddingLeft: 2
                     }}
-                    src={'shrek.JPG'}/>
+                    src={selection.Poster}/>
 
                 <Box>
-                    <Typography variant="h6" color='primary' sx={{padding: 2}}>Your name and email address were configured automatically based
-                        on your username and hostname. Please check that they are accurate.
-                        You can suppress this message by setting them explicitly. Run the
-                        following command and follow the instructions in your editor to edit
-                        your configuration file
+                    <Typography variant="h6" color='primary' sx={{padding: 2}}>
+                        {selection.Plot}
                     </Typography>
                     <Box sx={{display: "flex", flexWrap:"wrap"}}>
                         <Box sx={{display: 'flex', marginBottom: 3, paddingRight: 2}}>
                             <Box sx={{display: "flex", paddingRight: 3}}>
                                 <StarRateIcon fontSize="large" sx={{color: yellow[500], marginLeft: 2, marginRight: 1}}/>
                                 <Box sx={{display: "flex", alignSelf: 'flex-end'}}>
-                                    <Typography variant="h5" color="primary" sx={{marginRight:.5}}>8.1/10</Typography>
-                                    <Typography variant="body2" color="primary" sx={{alignSelf: 'center'}}>180k</Typography>
+                                    <Typography variant="h5" color="primary" sx={{marginRight:.5}}>''</Typography>
+                                    <Typography variant="body2" color="primary" sx={{alignSelf: 'center'}}>{selection.imdbVotes}</Typography>
                                 </Box>
                             </Box>
                             <Box sx={{display: 'flex'}}>
@@ -94,9 +114,9 @@ function SelectionDetails() {
             </Box>
 
             <Box sx={{paddingY: 4, paddingX: 2, color:'white'}}>
-                <Typography>Top Cast: Cece Winans, Tom Hanks</Typography>
-                <Typography>Directors: Timmy Culley, Yolanda Applen</Typography>
-                <Typography>Writers: Helen Donty, Jackie Simmons</Typography>
+                <Typography>{`Top Cast: ${selection.Actors}`}</Typography>
+                <Typography>{`Directors: ${selection.Director}`}</Typography>
+                <Typography>{`Writers: ${selection.Writer}`}</Typography>
             </Box>
         </Dialog>
     )

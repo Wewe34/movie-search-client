@@ -21,7 +21,7 @@ interface SearchResultsProps {
 
 
 function SearchResults(props: SearchResultsProps) {
-    const [filmType, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
+    const [filmTypes, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
     const [results, setResults] = useState<IResults[]>([]);
     const {searchValue} = props;
     
@@ -45,14 +45,8 @@ function SearchResults(props: SearchResultsProps) {
     },[searchValue])
     return (
         <Box>
-            <SelectionDetails />
-            {filmType.movies.length ?
-            <MovieList movies={filmType.movies} /> : ''}
-            {filmType.series.length ?
-            <SeriesList series={filmType.series} /> : ''}
-            {filmType.episodes.length ?
-            <EpisodesList episodes={filmType.episodes} /> : ''}
-
+            {filmTypes ?
+            <SeriesList list={filmTypes} /> : ''}
         </Box>
     )
 }
