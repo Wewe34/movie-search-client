@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { useAppSelector } from '../store/hooks';
+import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
+import { Selection } from "../models/selection";
 
 
 function Favorites() {
 
     const favorites = useAppSelector((state) => state.favorites.favoritesList);
+    const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
+    const [openSelection, setOpenSelection] = useState<boolean>(false);
+
+    const getSelectionById = async (imdbID: string) => {
+        try {
+            const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.REACT_APP_APIKEY}`);
+            const data = await response.json();
+            setSelection(data)  
+            setOpenSelection(true);  
+        } catch (error) {
+            throw error;
+        }   
+    }
 
     return (
         <Box sx={{padding:2}}>
@@ -14,7 +29,7 @@ function Favorites() {
             <Box>
                 <Box sx={{display: 'flex', flexWrap:"wrap"}}>
                         {favorites.map((favorite:any, index: number) => {
-                            return  <Box key={index} sx={{display: 'flex', padding: 1}}> 
+                            return  <Box key={index} sx={{display: 'flex', padding: 1}} onClick={() => getSelectionById(favorite.imdbID)}> 
                                         <Box component="img"
                                             sx={{
                                             maxHeight: { xs: 200, md: 300 },
@@ -30,6 +45,7 @@ function Favorites() {
                     </Box>
             </Box>
             : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You currently have no favorites.</Typography> }
+            <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection} />
         </Box>
     )
 }
