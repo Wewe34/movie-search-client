@@ -15,7 +15,7 @@ interface IListProps {
 function SearchLists(props: IListProps) {
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     let {list} = props;
 
     const getSelectionById = async (imdbID: string) => {
@@ -24,7 +24,7 @@ function SearchLists(props: IListProps) {
             const data = await response.json();
             setSelection(data)  
             setOpenSelection(true);
-            dispatch(addToRecentlyViewed(selection))
+            // dispatch(addToRecentlyViewed(selection))
         } catch (error) {
             throw error;
         }   

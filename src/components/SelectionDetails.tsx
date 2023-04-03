@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useState} from "react";
+import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { Typography, Dialog, useTheme, Button } from "@mui/material";
 import { Box } from "@mui/system";
@@ -12,6 +12,7 @@ import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
 import { yellow, pink, red, blue } from "@mui/material/colors";
 import { addFavorite, removeFavorite } from "../store/reducers/favorites";
 import { addToWatchlist, removeFromWatchlist } from "../store/reducers/watchlist";
+import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
 
 export interface ISelectionDetails {
     Title: string;
@@ -59,6 +60,14 @@ function SelectionDetails(props: ISelectionDetailsProps) {
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
     const dispatch = useAppDispatch();
+
+    const handleClose = () => {
+        if (toggleOpen) {
+            toggleOpen(false);
+        }
+        dispatch(addToRecentlyViewed(selection))
+    }
+
     return (
         <Dialog PaperProps={{
                     style: {
@@ -68,7 +77,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                 open={open ? open : false} 
                 fullScreen={true}
                 sx={{padding: 2}}>
-            <CancelIcon onClick={() => toggleOpen ? toggleOpen(false) : ''} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
+            <CancelIcon onClick={() => handleClose()} color='secondary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:2}} />
             <Typography variant="h3" color='primary' sx={{padding: 2}}>{selection.Title}</Typography>
             <Box sx={{display: 'flex', flexWrap:"wrap", justifyContent: "space-between"}}>
                 <Typography variant="h6" color='primary' sx={{padding: 2}}>

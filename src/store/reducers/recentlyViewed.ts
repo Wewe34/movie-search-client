@@ -15,7 +15,12 @@ export const recentlyViewedSlice = createSlice({
   initialState,
   reducers: {
     addToRecentlyViewed: (state, action: PayloadAction<ISelectionDetails>) => {
-      state.recentlyViewedList.push(action.payload);
+        const doubleIndex = state.recentlyViewedList.findIndex(viewed => viewed.imdbID === action.payload.imdbID);
+        if (doubleIndex != -1) {
+            state.recentlyViewedList.splice(doubleIndex, 1) 
+        }
+        state.recentlyViewedList.push(action.payload);
+        state.recentlyViewedList.reverse();
     },
     clearRecentlyViewedHistory: (state) => {
         state.recentlyViewedList = [];
