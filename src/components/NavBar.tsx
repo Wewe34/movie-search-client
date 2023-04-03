@@ -28,6 +28,7 @@ function NavBar() {
         setShowSmallDeviceSearch(false);
         setSearchValue('')
     }
+    
 
     console.log('searchvalue', searchValue);
 

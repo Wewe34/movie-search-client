@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import SearchLists from "./SearchLists";
 
@@ -19,7 +19,7 @@ function SearchResults(props: SearchResultsProps) {
     const [filmTypes, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
     const [results, setResults] = useState<IResults[]>([]);
     const {searchValue} = props;
-    
+    const mounted = useRef();
     useEffect(() => {
         const getMovies = async () => {
             try {
