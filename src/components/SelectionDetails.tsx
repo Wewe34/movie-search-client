@@ -94,16 +94,11 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                     </Typography>
                     <Box sx={{display: "flex", flexWrap:"wrap"}}>
                         <Box sx={{display: 'flex', marginBottom: 3, paddingRight: 2}}>
-                            <Box sx={{display: "flex", paddingRight: 6}}>
-                                <StarRateIcon fontSize="large" sx={{color: yellow[500], marginLeft: 2, marginRight: 1}}/>
+                            <Box sx={{display: "flex", paddingRight: 6, paddingLeft: 2}}>
+                                <Typography fontSize={20} fontWeight="bolder" sx={{marginRight:2,alignSelf: 'center', color:'black', backgroundColor:`${yellow[600]}`, paddingY:.1, paddingX:.5, borderRadius:1 }}>IMDb</Typography>
                                 <Box sx={{display: "flex", alignSelf: 'flex-end'}}>
-                                    <Typography variant="h5" color="primary" sx={{marginRight:.5}}>''</Typography>
-                                    <Typography variant="body2" color="primary" sx={{alignSelf: 'center'}}>{selection.imdbVotes}</Typography>
+                                    <Typography variant="h5" color="primary" sx={{marginRight:.5}}>{selection.Ratings.length ? selection.Ratings[0].Value : ''}</Typography>
                                 </Box>
-                            </Box>
-                            <Box sx={{display: 'flex'}}>
-                                <ThumbUpAltOutlinedIcon fontSize="large" color="primary" sx={{marginLeft: 2, marginRight: 1}}/>
-                                <Typography variant="h5" color="primary" sx={{marginRight:.5, alignSelf: "center"}}>Rate</Typography>
                             </Box>
                         </Box>
                         <Box sx={{display: 'flex'}}>
