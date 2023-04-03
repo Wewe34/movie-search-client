@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { IResults } from "./SearchResults";
 import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
+import { Selection } from "../models/selection";
 
 
 
@@ -10,23 +11,7 @@ interface IListProps {
 }
 
 function SearchLists(props: IListProps) {
-    const [selection, setSelection] = useState<ISelectionDetails>({
-        Title: '',
-        Year: '',
-        Rated: '',
-        Released: '',
-        Runtime: '',
-        Genre: '',
-        Director: '',
-        Writer: '',
-        Actors: '',
-        Plot: '',
-        Poster: '',
-        Ratings: [],
-        imdbVotes: '',
-        imdbID: '',
-        Type: ''
-    });
+    const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
     let {list} = props;
 
@@ -97,7 +82,7 @@ function SearchLists(props: IListProps) {
                     })}
                 </Box>
             </Box>
-            <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection}/>
+            <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection} />
         </Box>
     )
 }
