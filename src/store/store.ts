@@ -1,12 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import favoritesReducer from './reducers/favorites';
 import watchlistReducer from './reducers/watchlist';
-
+import recentlyViewedReducer from './reducers/recentlyViewed';
 
 export const store = configureStore({
   reducer: {
     favorites: favoritesReducer,
-    watchlist: watchlistReducer
+    watchlist: watchlistReducer,
+    recentlyViewed: recentlyViewedReducer
   },
 })
 
