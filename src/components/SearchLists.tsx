@@ -3,6 +3,8 @@ import { Box, Typography } from "@mui/material";
 import { IResults } from "./SearchResults";
 import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
+import { useAppDispatch } from "../store/hooks";
+import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
 
 
 
@@ -13,6 +15,7 @@ interface IListProps {
 function SearchLists(props: IListProps) {
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
+    // const dispatch = useAppDispatch();
     let {list} = props;
 
     const getSelectionById = async (imdbID: string) => {
@@ -20,7 +23,8 @@ function SearchLists(props: IListProps) {
             const response = await fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${process.env.REACT_APP_APIKEY}`);
             const data = await response.json();
             setSelection(data)  
-            setOpenSelection(true);  
+            setOpenSelection(true);
+            // dispatch(addToRecentlyViewed(selection))
         } catch (error) {
             throw error;
         }   
