@@ -7,8 +7,11 @@ import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { yellow, pink, red } from "@mui/material/colors";
+import BookmarkAddOutlinedIcon from '@mui/icons-material/BookmarkAddOutlined';
+import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
+import { yellow, pink, red, blue } from "@mui/material/colors";
 import { addFavorite, removeFavorite } from "../store/reducers/favorites";
+import { addToWatchlist, removeFromWatchlist } from "../store/reducers/watchlist";
 
 export interface ISelectionDetails {
     Title: string;
@@ -52,6 +55,7 @@ interface ISelectionDetailsProps {
 
 function SelectionDetails(props: ISelectionDetailsProps) {
     const favorites = useAppSelector((state) => state.favorites.favoritesList);
+    const watchlist = useAppSelector((state) => state.watchlist.watchlistList);
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
     const dispatch = useAppDispatch();
@@ -90,7 +94,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                     </Typography>
                     <Box sx={{display: "flex", flexWrap:"wrap"}}>
                         <Box sx={{display: 'flex', marginBottom: 3, paddingRight: 2}}>
-                            <Box sx={{display: "flex", paddingRight: 3}}>
+                            <Box sx={{display: "flex", paddingRight: 6}}>
                                 <StarRateIcon fontSize="large" sx={{color: yellow[500], marginLeft: 2, marginRight: 1}}/>
                                 <Box sx={{display: "flex", alignSelf: 'flex-end'}}>
                                     <Typography variant="h5" color="primary" sx={{marginRight:.5}}>''</Typography>
@@ -103,15 +107,24 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                             </Box>
                         </Box>
                         <Box sx={{display: 'flex'}}>
-                            <Box sx={{display: 'flex', paddingRight: 6}} >
+                            <Box sx={{display: 'flex', alignSelf:'center', paddingRight: 3}} >
                                 {favorites.some(favorite => favorite.imdbID === selection.imdbID) ? 
                                 <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(removeFavorite(selection))} /> :
                                 <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(addFavorite(selection))} /> 
                                 }
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>
-                            <Box>
-                                <Button variant='outlined' color="info" size="small" fullWidth={false} sx={{padding: 1, marginRight: 1, backgroundColor: 'whitesmoke'}}>+ Watchlist</Button>
+                            <Box sx={{paddingRight: 1}}>
+                            {watchlist.some(watchlistItem => watchlistItem.imdbID === selection.imdbID) ?
+                                 <Box sx={{display:"flex"}} onClick={() => dispatch(removeFromWatchlist(selection))}>
+                                    <BookmarkRemoveIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
+                                    <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >Watchlist</Typography> 
+                                </Box> :
+                                <Box sx={{display:"flex"}} onClick={() => dispatch(addToWatchlist(selection))}>
+                                    <BookmarkAddOutlinedIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
+                                    <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >
+                                        Watchlist</Typography> 
+                                </Box> } 
                             </Box>
                         </Box>
                     </Box>
