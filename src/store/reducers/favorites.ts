@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { ISelectionDetails } from '../../components/SelectionDetails'
 
 interface FavoritesState {
@@ -17,7 +18,7 @@ export const favoritesSlice = createSlice({
       state.favoritesList.push(action.payload);
     },
     removeFavorite: (state, action: PayloadAction<ISelectionDetails>) => {
-      state.favoritesList.filter(favorite => favorite.imdbID != action.payload.imdbID);
+        state.favoritesList = state.favoritesList.filter(favorite => favorite.imdbID != action.payload.imdbID)
     },
   },
 })

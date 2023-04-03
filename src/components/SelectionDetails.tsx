@@ -6,8 +6,9 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { yellow, pink, red } from "@mui/material/colors";
-import { addFavorite } from "../store/reducers/favorites";
+import { addFavorite, removeFavorite } from "../store/reducers/favorites";
 
 export interface ISelectionDetails {
     Title: string;
@@ -50,6 +51,7 @@ interface ISelectionDetailsProps {
 }
 
 function SelectionDetails(props: ISelectionDetailsProps) {
+    const favorites = useAppSelector((state) => state.favorites.favoritesList);
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
     const dispatch = useAppDispatch();
@@ -101,8 +103,11 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                             </Box>
                         </Box>
                         <Box sx={{display: 'flex'}}>
-                            <Box sx={{display: 'flex', paddingRight: 6}} onClick={() => dispatch(addFavorite(selection))}>
-                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}}  />
+                            <Box sx={{display: 'flex', paddingRight: 6}} >
+                                {favorites.some(favorite => favorite.imdbID === selection.imdbID) ? 
+                                <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(removeFavorite(selection))} /> :
+                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(addFavorite(selection))} /> 
+                                }
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>
                             <Box>
