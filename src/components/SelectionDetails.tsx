@@ -1,4 +1,5 @@
 import React, {Dispatch, SetStateAction, useState} from "react";
+import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { Typography, Dialog, useTheme, Button } from "@mui/material";
 import { Box } from "@mui/system";
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -6,6 +7,7 @@ import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import { yellow, pink, red } from "@mui/material/colors";
+import { addFavorite } from "../store/reducers/favorites";
 
 export interface ISelectionDetails {
     Title: string;
@@ -50,7 +52,7 @@ interface ISelectionDetailsProps {
 function SelectionDetails(props: ISelectionDetailsProps) {
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
-
+    const dispatch = useAppDispatch();
     return (
         <Dialog PaperProps={{
                     style: {
@@ -99,7 +101,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                             </Box>
                         </Box>
                         <Box sx={{display: 'flex'}}>
-                            <Box sx={{display: 'flex', paddingRight: 6}} onClick={() => ''}>
+                            <Box sx={{display: 'flex', paddingRight: 6}} onClick={() => dispatch(addFavorite(selection))}>
                                 <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}}  />
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>

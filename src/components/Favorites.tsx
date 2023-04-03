@@ -1,13 +1,12 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { useAppSelector, useAppDispatch } from '../store/hooks';
+import { useAppSelector } from '../store/hooks';
 
 
 function Favorites() {
 
     const favorites = useAppSelector((state) => state.favorites.favoritesList);
 
-    console.log('fav', favorites)
     return (
         <Box sx={{padding:2}}>
             <Typography variant="h4" color="primary" sx={{paddingTop:3, paddingLeft:1}} >My Favorites</Typography>
@@ -21,7 +20,7 @@ function Favorites() {
                                             maxHeight: { xs: 200, md: 300 },
                                             maxWidth: { xs: 100, md: 175 },
                                             }}
-                                            src={favorite.poster}
+                                            src={favorite.Poster}
                                         />
                                     </Box>
                         })}
