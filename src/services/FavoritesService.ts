@@ -8,6 +8,9 @@ class FavoritesService {
     constructor() {
         this.URI = 'http://localhost:8000/favorites';
     }
+    loadFavorites(userId: string): Promise<ISelectionDetails[]> {
+        return axios.get(`${this.URI}/${userId}`, {params: {userId}}).then((results:any) => results.data).catch((err:any) => err);
+    }
     addFavorite(user: User, selection: ISelectionDetails): Promise<ISelectionDetails> {
         return axios.post(this.URI, {user, selection }).then((result:any) => result.data).catch((err: any) => err);
     }
