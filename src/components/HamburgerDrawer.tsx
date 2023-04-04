@@ -34,10 +34,6 @@ function HamburgerDrawer(props: IHamburgerDrawerProps) {
                         <BookmarkOutlinedIcon/>
                         <Typography  sx={{paddingBottom:5, paddingLeft:2}}>My Watchlist</Typography>
                     </Box>
-                    <Box sx={{display:"flex"}}>
-                        <PersonIcon />
-                        <Typography  sx={{paddingBottom:5, paddingLeft:2}}>Sign In</Typography>
-                    </Box>
                 </Box>
             </Drawer>
         </>
