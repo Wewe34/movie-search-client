@@ -14,6 +14,7 @@ import { addFavorite, removeFavorite } from "../store/reducers/favorites";
 import { addToWatchlist, removeFromWatchlist } from "../store/reducers/watchlist";
 import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
 import { useNavigate } from "react-router-dom";
+import FavoritesService from "../services/FavoritesService";
 
 export interface ISelectionDetails {
     Title: string;
@@ -72,6 +73,22 @@ function SelectionDetails(props: ISelectionDetailsProps) {
         console.log(selection)
     }
 
+    const addToFavorites = () => {
+        if (user.id) {
+            dispatch(addFavorite(selection))
+            FavoritesService.addFavorite(user.id, selection);
+        } else {
+            navigate('/login')
+        }
+    }
+
+    const removeFromFavorites = () => {
+        if(user.id) {
+            dispatch(removeFavorite(selection))
+            FavoritesService.removeFavorite(user.id, selection.imdbID);
+        }
+    }
+
     return (
         <Dialog PaperProps={{
                     style: {
@@ -117,8 +134,8 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                         <Box sx={{display: 'flex'}}>
                             <Box sx={{display: 'flex', alignSelf:'center', paddingRight: 3}} >
                                 {favorites.some(favorite => favorite.imdbID === selection.imdbID) ? 
-                                <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(removeFavorite(selection))} /> :
-                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => user.id ? dispatch(addFavorite(selection)) : navigate('/login')} /> 
+                                <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => removeFromFavorites()} /> :
+                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => addToFavorites()} /> 
                                 }
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>
