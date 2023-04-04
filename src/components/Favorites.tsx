@@ -5,6 +5,8 @@ import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
 import FavoritesService from "../services/FavoritesService";
 import { loadFavoritesToView } from "../store/reducers/favorites";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDocument from "./PdfDocument";
 
 
 function Favorites() {
@@ -12,6 +14,7 @@ function Favorites() {
     const favorites = useAppSelector((state) => state.favorites.favoritesList);
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
+    const [favoritesStringProp, setFavoritesStringProp] = useState<string>('');
     const user = useAppSelector((state) => state.user.user);
     const dispatch = useAppDispatch();
 
@@ -50,9 +53,11 @@ function Favorites() {
                                     </Box>
                         })}
                     </Box> 
-                    <Box>
-                        <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
-                    </Box>
+                    <PDFDownloadLink document={<PdfDocument favoritesList={favorites} favorites={favoritesStringProp}/>} fileName="my-movie-favorites.pdf">
+                        <Box onClick={() => setFavoritesStringProp('favorites')}>
+                            <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
+                        </Box>
+                    </PDFDownloadLink>
             </Box>
             : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You currently have no favorites.</Typography> }
             <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection} />

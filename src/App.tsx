@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import {theme} from './theme';
 import RecentlyViewed from './components/RecentlyViewed';
 import Routes from './routes';
+import PdfDownload from './components/PdfDocument';
 
 
 
