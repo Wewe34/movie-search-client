@@ -5,6 +5,8 @@ import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
 import WatchlistService from "../services/WatchlistService";
 import { loadWatchlistToView } from "../store/reducers/watchlist";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import WatchlistPdfDocument from "./WatchlistPdfDocument";
 
 function Watchlist() {
 
@@ -49,9 +51,11 @@ function Watchlist() {
                                     </Box>
                         })}
                     </Box> 
-                    <Box>
-                        <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
-                    </Box>
+                    <PDFDownloadLink document={<WatchlistPdfDocument watchlistList={watchlist} />} fileName="my-watchlist.pdf">
+                        <Box>
+                            <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
+                        </Box>
+                    </PDFDownloadLink>
             </Box>
             : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You have no watchlist films</Typography> }
             <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection} />

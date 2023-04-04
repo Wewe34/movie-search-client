@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Document, Page, Text, View, StyleSheet, PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
+import React from 'react';
+import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { ISelectionDetails } from './SelectionDetails';
-import { isAbsolute } from 'path';
 
 const styles = StyleSheet.create({
   page: {
@@ -29,20 +28,14 @@ const styles = StyleSheet.create({
 });
 
 interface IPdfProps {
-  favoritesList?: ISelectionDetails[],
-  favorites: string;
+  favoritesList: ISelectionDetails[],
 }
 
 
-const PdfDocument = (props: IPdfProps) => {
-  const [currentList, setCurrentList] =useState<string>();
-  const {favoritesList, favorites} = props;
-  
-  useEffect(() => {
-    if(favorites.length) {
+const FavoritesPdfDocument = (props: IPdfProps) => {
+ 
+  const {favoritesList} = props;
 
-    }
-  },[])
 
   return (
     <Document>
@@ -50,13 +43,13 @@ const PdfDocument = (props: IPdfProps) => {
         <View>
         <Text style={styles.title}>My Favorites</Text>
         <View style={styles.listContainer}>
-          {favoritesList ? favoritesList.map((favorite, index) => {
+          {favoritesList.map((listItem, index) => {
             return <View key={index} style={styles.list}>
               <Text>{`${index+1}) `}</Text>
-              <Text style={styles.listItem}>{favorite.Title}</Text>
-              <Text>{`(${favorite.Year})`}</Text>
+              <Text style={styles.listItem}>{listItem.Title}</Text>
+              <Text>{`(${listItem.Year})`}</Text>
             </View>
-          }) : ''}
+          })}
         </View>
         </View>
       </Page>
@@ -65,4 +58,4 @@ const PdfDocument = (props: IPdfProps) => {
 }
 
 
-export default PdfDocument;
+export default FavoritesPdfDocument;

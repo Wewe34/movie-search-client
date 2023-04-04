@@ -6,7 +6,7 @@ import { Selection } from "../models/selection";
 import FavoritesService from "../services/FavoritesService";
 import { loadFavoritesToView } from "../store/reducers/favorites";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfDocument from "./PdfDocument";
+import FavoritesPdfDocument from "./FavoritesPdfDocument";
 
 
 function Favorites() {
@@ -14,7 +14,6 @@ function Favorites() {
     const favorites = useAppSelector((state) => state.favorites.favoritesList);
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
-    const [favoritesStringProp, setFavoritesStringProp] = useState<string>('');
     const user = useAppSelector((state) => state.user.user);
     const dispatch = useAppDispatch();
 
@@ -53,8 +52,10 @@ function Favorites() {
                                     </Box>
                         })}
                     </Box> 
-                    <PDFDownloadLink document={<PdfDocument favoritesList={favorites} favorites={favoritesStringProp}/>} fileName="my-movie-favorites.pdf">
-                        <Box onClick={() => setFavoritesStringProp('favorites')}>
+                    <PDFDownloadLink
+                        document={<FavoritesPdfDocument favoritesList={favorites} />} 
+                        fileName="my-movie-favorites.pdf">
+                        <Box>
                             <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
                         </Box>
                     </PDFDownloadLink>

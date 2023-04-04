@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import './App.css';
 import { ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
 import NavBar from './components/NavBar';
 import {theme} from './theme';
 import RecentlyViewed from './components/RecentlyViewed';
 import Routes from './routes';
-import PdfDownload from './components/PdfDocument';
 
 
 
