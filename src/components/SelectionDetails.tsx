@@ -74,17 +74,33 @@ function SelectionDetails(props: ISelectionDetailsProps) {
     }
 
     const addToFavorites = () => {
-        if (user.id) {
+        if (user) {
             dispatch(addFavorite(selection))
-            FavoritesService.addFavorite(user.id, selection);
+            FavoritesService.addFavorite(user, selection);
         } else {
             navigate('/login')
         }
     }
 
     const removeFromFavorites = () => {
-        if(user.id) {
+        if(user) {
             dispatch(removeFavorite(selection))
+            FavoritesService.removeFavorite(user.id, selection.imdbID);
+        }
+    }
+
+    const addSelectionToWatchlist = () => {
+        if (user) {
+            dispatch(addToWatchlist(selection))
+            FavoritesService.addFavorite(user, selection);
+        } else {
+            navigate('/login')
+        }
+    }
+
+    const removeSelectionFromWatchlist = () => {
+        if(user) {
+            dispatch(removeFromWatchlist(selection))
             FavoritesService.removeFavorite(user.id, selection.imdbID);
         }
     }
@@ -141,11 +157,11 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                             </Box>
                             <Box sx={{paddingRight: 1}}>
                             {watchlist.some(watchlistItem => watchlistItem.imdbID === selection.imdbID) ?
-                                 <Box sx={{display:"flex"}} onClick={() => dispatch(removeFromWatchlist(selection))}>
+                                 <Box sx={{display:"flex"}} onClick={() => removeSelectionFromWatchlist()}>
                                     <BookmarkRemoveIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
                                     <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >Watchlist</Typography> 
                                 </Box> :
-                                <Box sx={{display:"flex"}} onClick={() => user.id ? dispatch(addToWatchlist(selection)) : navigate('/login')}>
+                                <Box sx={{display:"flex"}} onClick={() => addSelectionToWatchlist()}>
                                     <BookmarkAddOutlinedIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
                                     <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >
                                         Watchlist</Typography> 
