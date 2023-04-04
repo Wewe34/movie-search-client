@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import './App.css';
 import { ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
 import NavBar from './components/NavBar';

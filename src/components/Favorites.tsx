@@ -5,6 +5,8 @@ import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
 import FavoritesService from "../services/FavoritesService";
 import { loadFavoritesToView } from "../store/reducers/favorites";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import FavoritesPdfDocument from "./FavoritesPdfDocument";
 
 
 function Favorites() {
@@ -50,9 +52,13 @@ function Favorites() {
                                     </Box>
                         })}
                     </Box> 
-                    <Box>
-                        <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
-                    </Box>
+                    <PDFDownloadLink
+                        document={<FavoritesPdfDocument favoritesList={favorites} />} 
+                        fileName="my-movie-favorites.pdf">
+                        <Box>
+                            <Button sx={{margin:1, marginTop:3}}variant="contained" color="info">Download PDF</Button>
+                        </Box>
+                    </PDFDownloadLink>
             </Box>
             : <Typography variant="body1" color="primary" sx={{paddingTop:3, paddingLeft:2}} >You currently have no favorites.</Typography> }
             <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection} />
