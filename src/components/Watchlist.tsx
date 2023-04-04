@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import { useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
+import WatchlistService from "../services/WatchlistService";
+import { loadWatchlistToView } from "../store/reducers/watchlist";
 
 function Watchlist() {
 
     const watchlist = useAppSelector((state) => state.watchlist.watchlistList);
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
+    const user = useAppSelector((state) => state.user.user);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        WatchlistService.loadWatchlist(user.id).then((watchlist) => {
+            dispatch(loadWatchlistToView(watchlist));
+        })
+    }, [])
 
     const getSelectionById = async (imdbID: string) => {
         try {

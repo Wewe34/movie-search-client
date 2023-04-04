@@ -8,6 +8,9 @@ class WatchlistService {
     constructor() {
         this.URI = 'http://localhost:8000/watchlist';
     }
+    loadWatchlist(userId: string): Promise<ISelectionDetails[]> {
+        return axios.get(`${this.URI}/${userId}`, {params: {userId}}).then((results:any) => results.data).catch((err:any) => err);
+    }
     addToWatchlist(user: User, selection: ISelectionDetails): Promise<ISelectionDetails> {
         return axios.post(this.URI, {user, selection }).then((result:any) => result.data).catch((err: any) => err);
     }
