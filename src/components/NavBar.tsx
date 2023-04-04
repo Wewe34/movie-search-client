@@ -14,6 +14,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HamburgerDrawer from "./HamburgerDrawer";
 import SearchResults from "./SearchResults";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -22,12 +23,14 @@ function NavBar() {
     const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState<boolean>(false);
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
     const [searchValue, setSearchValue] = useState<string>('');
+    const navigate = useNavigate();
     const smallDevice = useMediaQuery("(max-width:600px)");
     
     const handleCancelSmallDeviceSearch = () => {
         setShowSmallDeviceSearch(false);
         setSearchValue('')
     }
+    
 
     console.log('searchvalue', searchValue);
 
@@ -67,7 +70,7 @@ function NavBar() {
                             sx={{flexGrow: 3, mx: 2, my: 2, backgroundColor: `${theme.palette.primary.main}`, borderRadius: 2, minWidth:'200px'}}
                             onChange={(event) => setSearchValue(event.target.value)}
                         />}
-                     <Button sx={{flexGrow: 1, color: '#fff'}}>Sign In</Button>   
+                     <Button sx={{flexGrow: 1, color: '#fff'}} onClick={() => navigate('login') }>Sign In</Button>   
                     </Box>
                 </Toolbar>}
             </AppBar>

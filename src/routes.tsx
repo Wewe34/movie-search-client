@@ -2,21 +2,25 @@ import { RouteSharp } from '@mui/icons-material';
 import React from 'react';
 import {
     Route,
-    redirect, Routes as Switch } from 'react-router-dom';
+    Navigate, Routes as Switch } from 'react-router-dom';
 import Favorites from './components/Favorites';
 import Home from './components/Home';
-import SearchResults from './components/SearchResults';
 import Watchlist from './components/Watchlist';
+import SignIn from './components/SignIn';
+import {useAppSelector} from './store/hooks';
 
 
   
 function Routes() {
 
+    const user = useAppSelector(state => state.user.user);
+    
     return (
         <Switch>
             <Route path='/' element={<Home/>}/>
-            <Route path='/favorites' element={<Favorites/>}/>
-            <Route path='/watchlist' element={<Watchlist/>}/>
+            <Route path='/login' element={user.id.length ? <Navigate to="/"/> : <SignIn />}/>
+            <Route path='/favorites' element={user.id.length ? <Favorites /> : <Navigate to="/login" />}/>
+            <Route path='/watchlist' element={user.id.length ? <Watchlist /> : <Navigate to="/login" />}/>
         </Switch>
     )
 }

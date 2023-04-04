@@ -15,7 +15,6 @@ interface IListProps {
 function SearchLists(props: IListProps) {
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
-    // const dispatch = useAppDispatch();
     let {list} = props;
 
     const getSelectionById = async (imdbID: string) => {
@@ -24,7 +23,6 @@ function SearchLists(props: IListProps) {
             const data = await response.json();
             setSelection(data)  
             setOpenSelection(true);
-            // dispatch(addToRecentlyViewed(selection))
         } catch (error) {
             throw error;
         }   
@@ -33,7 +31,7 @@ function SearchLists(props: IListProps) {
 
     return (
         <Box>
-
+            {list.movies.length ? 
             <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '100%', paddingX: 1}}>
                 <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Movies</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
@@ -51,8 +49,8 @@ function SearchLists(props: IListProps) {
                                 </Box>
                     })}
                 </Box>
-            </Box>
-
+            </Box> : ''}
+            {list.series.length ?
             <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '100%', paddingX: 1}}>
                 <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Series</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
@@ -68,8 +66,8 @@ function SearchLists(props: IListProps) {
                                 </Box>
                     })}
                 </Box>
-            </Box>
-
+            </Box> : ''}
+            {list.episodes.length ?
             <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '100%', paddingX: 1}}>
                 <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Episodes</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
@@ -85,7 +83,7 @@ function SearchLists(props: IListProps) {
                                 </Box>
                     })}
                 </Box>
-            </Box>
+            </Box> : ''}
             <SelectionDetails selection={selection} open={openSelection} toggleOpen={setOpenSelection} />
         </Box>
     )

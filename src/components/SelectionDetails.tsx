@@ -13,6 +13,7 @@ import { yellow, pink, red, blue } from "@mui/material/colors";
 import { addFavorite, removeFavorite } from "../store/reducers/favorites";
 import { addToWatchlist, removeFromWatchlist } from "../store/reducers/watchlist";
 import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
+import { useNavigate } from "react-router-dom";
 
 export interface ISelectionDetails {
     Title: string;
@@ -57,15 +58,18 @@ interface ISelectionDetailsProps {
 function SelectionDetails(props: ISelectionDetailsProps) {
     const favorites = useAppSelector((state) => state.favorites.favoritesList);
     const watchlist = useAppSelector((state) => state.watchlist.watchlistList);
+    const user = useAppSelector((state) => state.user.user);
     const theme = useTheme();
     const {selection, open, toggleOpen} = props;
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const handleClose = () => {
         if (toggleOpen) {
             toggleOpen(false);
         }
         dispatch(addToRecentlyViewed(selection))
+        console.log(selection)
     }
 
     return (
@@ -114,7 +118,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                             <Box sx={{display: 'flex', alignSelf:'center', paddingRight: 3}} >
                                 {favorites.some(favorite => favorite.imdbID === selection.imdbID) ? 
                                 <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(removeFavorite(selection))} /> :
-                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(addFavorite(selection))} /> 
+                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => user.id ? dispatch(addFavorite(selection)) : navigate('/login')} /> 
                                 }
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>
@@ -124,7 +128,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                                     <BookmarkRemoveIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
                                     <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >Watchlist</Typography> 
                                 </Box> :
-                                <Box sx={{display:"flex"}} onClick={() => dispatch(addToWatchlist(selection))}>
+                                <Box sx={{display:"flex"}} onClick={() => user.id ? dispatch(addToWatchlist(selection)) : navigate('/login')}>
                                     <BookmarkAddOutlinedIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
                                     <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >
                                         Watchlist</Typography> 
