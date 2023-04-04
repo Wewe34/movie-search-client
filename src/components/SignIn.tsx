@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { GoogleLogin } from '@react-oauth/google';
 import jwtDecode from "jwt-decode";
 import {useAppDispatch} from '../store/hooks';
@@ -11,7 +11,8 @@ import { Credentials } from "../models/credientials";
 function SignIn() {
     const dispatch = useAppDispatch();
     return (
-        <Box>
+        <Box minHeight={'60vh'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+            <Typography color="primary" variant="h5" paddingBottom={7}>Sign in with Google</Typography>
             <GoogleLogin
             onSuccess={credentialResponse => {
                 console.log(credentialResponse);
@@ -24,6 +25,7 @@ function SignIn() {
             }}
             useOneTap
             />;
+            <Typography color="primary" variant="body1" paddingBottom={7}>Add To Favorites and Watchlist when you sign in.</Typography>
         </Box>
     )
 }

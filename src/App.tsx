@@ -3,8 +3,9 @@ import './App.css';
 import { ThemeProvider, CssBaseline, GlobalStyles } from '@mui/material';
 import NavBar from './components/NavBar';
 import {theme} from './theme';
-import RecentlyViewed from './components/RecentlyViewed';
 import Routes from './routes';
+import Footer from './components/Footer';
+import MovieStripTape from './components/MovieStripTape';
 
 
 
@@ -19,9 +20,10 @@ function App() {
           body: { backgroundColor: `${theme.palette.background.default}`},
         }}
       />
+     
       <NavBar />
       <Routes />
-      <RecentlyViewed />
+      <Footer />
     </ThemeProvider>
   );
 }

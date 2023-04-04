@@ -34,17 +34,20 @@ function Watchlist() {
     }
 
     return (
-        <Box sx={{padding:2}}>
-            <Typography variant="h4" color="primary" sx={{paddingTop:3, paddingLeft:1}} >My Watchlist</Typography>
+        <Box sx={{padding:2, minHeight:'80vh'}}>
+            <Typography variant="h4" color="primary" fontWeight={'bold'} sx={{paddingTop:3, paddingLeft:1}} >My Watchlist</Typography>
             {watchlist.length ? 
             <Box>
                 <Box sx={{display: 'flex', flexWrap:"wrap"}}>
                         {watchlist.map((watchlistItem:any, index: number) => {
-                            return  <Box key={index} sx={{display: 'flex', padding: 1}} onClick={() => getSelectionById(watchlistItem.imdbID)}> 
+                            return  <Box key={index} sx={{display: 'flex', padding: 1,cursor:"pointer"}} onClick={() => getSelectionById(watchlistItem.imdbID)}> 
                                         <Box component="img"
                                             sx={{
                                             maxHeight: { xs: 200, md: 300 },
                                             maxWidth: { xs: 100, md: 175 },
+                                            "&:hover": {
+                                                transform: 'scale(1.1,1.1)',
+                                            }
                                             }}
                                             src={watchlistItem.Poster}
                                         />
