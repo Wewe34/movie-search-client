@@ -15,6 +15,7 @@ import { addToWatchlist, removeFromWatchlist } from "../store/reducers/watchlist
 import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
 import { useNavigate } from "react-router-dom";
 import FavoritesService from "../services/FavoritesService";
+import WatchlistService from "../services/WatchlistService";
 
 export interface ISelectionDetails {
     Title: string;
@@ -92,7 +93,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
     const addSelectionToWatchlist = () => {
         if (user) {
             dispatch(addToWatchlist(selection))
-            FavoritesService.addFavorite(user, selection);
+            WatchlistService.addToWatchlist(user, selection);
         } else {
             navigate('/login')
         }
@@ -101,7 +102,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
     const removeSelectionFromWatchlist = () => {
         if(user) {
             dispatch(removeFromWatchlist(selection))
-            FavoritesService.removeFavorite(user.id, selection.imdbID);
+            WatchlistService.removeFromWatchlist(user.id, selection.imdbID);
         }
     }
 
