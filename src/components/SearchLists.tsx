@@ -3,8 +3,8 @@ import { Box, Typography } from "@mui/material";
 import { IResults } from "./SearchResults";
 import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
-import { useAppDispatch } from "../store/hooks";
-import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
+import { red, yellow } from "@mui/material/colors";
+import MovieStripTape from "./MovieStripTape";
 
 
 
@@ -30,57 +30,87 @@ function SearchLists(props: IListProps) {
 
 
     return (
-        <Box>
+        <Box minHeight={'50vh'} paddingBottom={10}>
             {list.movies.length ? 
             <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '100%', paddingX: 1}}>
-                <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Movies</Typography>
+                <Typography variant="h4" color='primary' fontWeight={'bold'} sx={{paddingY:3, paddingLeft:2}} >Movies</Typography>
+
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
+
                     {list.movies.map((movie:any, index: number) => {
-                        return  <Box key={index} sx={{padding: 2, backgroundColor:'black'}} onClick={() => getSelectionById(movie.imdbID)}>
-                                    <Box component="img"
-                                        sx={{
-                                        maxHeight: { xs: 200, md: 300 },
-                                        maxWidth: { xs: 100, md: 175 },
-                                        }}
-                                        src={movie.Poster != "N/A" ? movie.Poster : 'no-poster-available.jpeg'}
-                                    />
-                                    <Typography color="primary">{movie.Title}</Typography>
-                                    <Typography color="primary">{movie.Year}</Typography>
+                               return <Box sx={{}}>
+                                        <MovieStripTape />
+                                        <Box key={index} sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(movie.imdbID)}>
+                                                    <Box component="img"
+                                                        sx={{
+                                                        maxHeight: { xs: 250},
+                                                        maxWidth: { xs: 145},
+                                                        "&:hover": {
+                                                            transform: 'rotate(5deg) scale(1.1,1.1) translate(5px,20px)',
+                                                            boxShadow: `10px 10px 115px ${yellow[200]} `
+                                                        }
+                                                        }}
+                                                        src={movie.Poster != "N/A" ? movie.Poster : 'no-poster-available.jpeg'}
+                                                    />
+                                                    <Typography fontWeight={'bold'} sx={{maxWidth: '135px'}} color="primary">{movie.Title}</Typography>
+                                                    <Typography color="primary">{movie.Year}</Typography>
+                                        </Box>
+                                        <MovieStripTape />
                                 </Box>
                     })}
                 </Box>
             </Box> : ''}
             {list.series.length ?
             <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '100%', paddingX: 1}}>
-                <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Series</Typography>
+                <Typography variant="h4" color='primary' fontWeight={'bold'} sx={{paddingY:3, paddingLeft:2}} >Series</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
                     {list.series.map((show:any, index: number) => {
-                        return  <Box key={index} sx={{padding: 2, backgroundColor:'black'}} onClick={() => getSelectionById(show.imdbID)}> 
-                                    <Box component="img"
-                                        sx={{
-                                        maxHeight: { xs: 200, md: 300 },
-                                        maxWidth: { xs: 100, md: 175 },
-                                        }}
-                                        src={show.Poster != "N/A" ? show.Poster : 'no-poster-available.jpeg'}
-                                    />
-                                </Box>
+                          return <Box sx={{}}>
+                                    <MovieStripTape />
+                                    <Box key={index} sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(show.imdbID)}>
+                                                <Box component="img"
+                                                    sx={{
+                                                    maxHeight: { xs: 250},
+                                                    maxWidth: { xs: 145},
+                                                    "&:hover": {
+                                                        transform: 'rotate(5deg) scale(1.1,1.1) translate(5px,20px)',
+                                                        boxShadow: `10px 10px 115px ${yellow[200]} `
+                                                    }
+                                                    }}
+                                                    src={show.Poster != "N/A" ? show.Poster : 'no-poster-available.jpeg'}
+                                                />
+                                                <Typography fontWeight={'bold'} sx={{maxWidth: '135px'}} color="primary">{show.Title}</Typography>
+                                                <Typography color="primary">{show.Year}</Typography>
+                                    </Box>
+                                    <MovieStripTape />
+                            </Box>
                     })}
                 </Box>
             </Box> : ''}
             {list.episodes.length ?
             <Box sx={{display: 'flex', flexDirection: 'column', maxWidth: '100%', paddingX: 1}}>
-                <Typography variant="h4" color='primary' sx={{paddingY:3, paddingLeft:2}} >Episodes</Typography>
+                <Typography variant="h4" color='primary' fontWeight={'bold'} sx={{paddingY:3, paddingLeft:2}} >Episodes</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
                     {list.episodes.map((episode:any, index: number) => {
-                        return  <Box key={index} sx={{padding: 2, backgroundColor:'black'}} onClick={() => getSelectionById(episode.imdbID)}> 
-                                    <Box component="img"
-                                        sx={{
-                                        maxHeight: { xs: 200, md: 300 },
-                                        maxWidth: { xs: 100, md: 175 },
-                                        }}
-                                        src={episode.Poster != "N/A" ? episode.Poster : 'no-poster-available.jpeg'}
-                                    />
-                                </Box>
+                        return <Box sx={{}}>
+                                    <MovieStripTape />
+                                    <Box key={index} sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(episode.imdbID)}>
+                                                <Box component="img"
+                                                    sx={{
+                                                    maxHeight: { xs: 250},
+                                                    maxWidth: { xs: 145},
+                                                    "&:hover": {
+                                                        transform: 'rotate(5deg) scale(1.1,1.1) translate(5px,20px)',
+                                                        boxShadow: `10px 10px 115px ${yellow[200]} `
+                                                    }
+                                                    }}
+                                                    src={episode.Poster != "N/A" ? episode.Poster : 'no-poster-available.jpeg'}
+                                                />
+                                                <Typography fontWeight={'bold'} sx={{maxWidth: '135px'}} color="primary">{episode.Title}</Typography>
+                                                <Typography color="primary">{episode.Year}</Typography>
+                                    </Box>
+                                    <MovieStripTape />
+                            </Box>
                     })}
                 </Box>
             </Box> : ''}

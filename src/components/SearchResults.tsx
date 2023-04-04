@@ -1,6 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import SearchLists from "./SearchLists";
+import Home from "./Home";
+import { useAppSelector } from "../store/hooks";
+
 
 export interface IResults {
     Title: string,
@@ -10,16 +13,12 @@ export interface IResults {
     Type: string
 }
 
-interface SearchResultsProps {
-    searchValue: string;
-}
 
 
-function SearchResults(props: SearchResultsProps) {
+function SearchResults() {
     const [filmTypes, setFilmType] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
     const [results, setResults] = useState<IResults[]>([]);
-    const {searchValue} = props;
-    const mounted = useRef();
+    const searchValue = useAppSelector((state) => state.user.searchInput);
     useEffect(() => {
         const getMovies = async () => {
             try {
@@ -40,8 +39,8 @@ function SearchResults(props: SearchResultsProps) {
     },[searchValue])
     return (
         <Box>
-            {filmTypes ?
-            <SearchLists list={filmTypes} /> : ''}
+            {filmTypes && searchValue.length ?
+            <SearchLists list={filmTypes} /> : 'No results found'}
         </Box>
     )
 }

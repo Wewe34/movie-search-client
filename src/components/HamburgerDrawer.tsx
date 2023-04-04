@@ -26,11 +26,11 @@ function HamburgerDrawer(props: IHamburgerDrawerProps) {
                 sx={{minWidth:'50%'}}
                 >
                 <Box sx={{paddingRight:7, paddingLeft:3, paddingY:3}} onClick={() => closeDrawer(false)}>
-                    <Box sx={{display:"flex"}} onClick={() => navigate('/favorites')}>
+                    <Box sx={{display:"flex", cursor:"pointer"}} onClick={() => navigate('/favorites')}>
                         <FavoriteIcon />
                         <Typography  sx={{paddingBottom:5, paddingLeft:2}}>My Favorites</Typography>
                     </Box>
-                    <Box sx={{display:"flex"}} onClick={() => navigate('/watchlist')}>
+                    <Box sx={{display:"flex", cursor:"pointer"}} onClick={() => navigate('/watchlist')}>
                         <BookmarkOutlinedIcon/>
                         <Typography  sx={{paddingBottom:5, paddingLeft:2}}>My Watchlist</Typography>
                     </Box>

@@ -13,10 +13,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HamburgerDrawer from "./HamburgerDrawer";
-import SearchResults from "./SearchResults";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { signOutUser } from "../store/reducers/user";
+import { signOutUser, userSearchInput } from "../store/reducers/user";
+
 
 
 
@@ -24,24 +24,27 @@ function NavBar() {
     const theme = useTheme();
     const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState<boolean>(false);
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
-    const [searchValue, setSearchValue] = useState<string>('');
     const user = useAppSelector((state) => state.user.user);
+    const searchValue = useAppSelector((state) => state.user.searchInput);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const smallDevice = useMediaQuery("(max-width:600px)");
     
     const handleCancelSmallDeviceSearch = () => {
         setShowSmallDeviceSearch(false);
-        setSearchValue('')
+        dispatch(userSearchInput(''))
     }
 
     const signOut = () => {
         dispatch(signOutUser());
         navigate('/');
     }
-    
 
-    console.log('searchvalue', searchValue);
+    const handleChange = (event: {target: {value: string}}) => {
+        navigate('/');
+        dispatch(userSearchInput(event.target.value))
+    }
+    
 
     return (
         <Box sx={{ flexGrow: 1, maxWidth: '100%'}}>
@@ -50,9 +53,9 @@ function NavBar() {
                 <Box sx={{display: 'flex'}}>
                     <TextField
                         value={searchValue}
-                        placeholder="Search Flixim"
+                        placeholder="Search"
                         sx={{flexGrow: 4, mx: 2, my: 2, backgroundColor: `${theme.palette.primary.main}`, borderRadius: 2, minWidth:'200px'}}
-                        onChange={(event) => setSearchValue(event.target.value)}/> 
+                        onChange={(event) => handleChange(event)} /> 
                     <CancelIcon onClick={() => handleCancelSmallDeviceSearch()} color='primary' fontSize='large' sx={{flexGrow: 2, alignSelf: 'center'}} />
                 </Box> :
                 <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
@@ -60,14 +63,21 @@ function NavBar() {
                         <MenuIcon
                             fontSize="large"
                             color='primary'
-                            sx={{ mr: 2, alignSelf: 'center' }}
+                            sx={{ mr: 2, alignSelf: 'center', cursor:"pointer" }}
                             onClick={() => setDrawerOpen(true)}
                         >
                         </MenuIcon>
                         <HamburgerDrawer isOpen={drawerOpen} closeDrawer={setDrawerOpen}/>
-                        <Typography variant="h5" component="div" color='secondary' sx={{mr: 2, minWidth: '30px' }} >
-                            MovieXpress
-                        </Typography>
+                        <Box component="img"
+                                            sx={{
+                                            maxHeight: { xs: 200, md: 200 },
+                                            maxWidth: { xs: 100, md: 100 },
+                                            alignSelf: 'flex-end',
+                                            cursor:"pointer"
+                                            }}
+                                            src={'/logo.png'}
+                                            onClick={() => navigate('/')}
+                                        />
                     </Box>
                     <Box sx={{display: 'flex',flexGrow: 3}}>
                     {smallDevice ? 
@@ -77,7 +87,7 @@ function NavBar() {
                             placeholder="Search"
                             color='secondary'
                             sx={{flexGrow: 3, mx: 2, my: 2, backgroundColor: `${theme.palette.primary.main}`, borderRadius: 2, minWidth:'200px'}}
-                            onChange={(event) => setSearchValue(event.target.value)}
+                            onChange={(event) => handleChange(event)}
                         />}
                     {!user.id ? 
                      <Button sx={{flexGrow: 1, color: '#fff'}} onClick={() => navigate('/login') }>Sign In</Button> :
@@ -85,7 +95,6 @@ function NavBar() {
                     </Box>
                 </Toolbar>}
             </AppBar>
-            {searchValue.length ? <SearchResults searchValue={searchValue}/> : ''}
         </Box>
     )
 }
