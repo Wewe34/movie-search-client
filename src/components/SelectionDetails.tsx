@@ -14,6 +14,8 @@ import { addFavorite, removeFavorite } from "../store/reducers/favorites";
 import { addToWatchlist, removeFromWatchlist } from "../store/reducers/watchlist";
 import { addToRecentlyViewed } from "../store/reducers/recentlyViewed";
 import { useNavigate } from "react-router-dom";
+import FavoritesService from "../services/FavoritesService";
+import WatchlistService from "../services/WatchlistService";
 
 export interface ISelectionDetails {
     Title: string;
@@ -72,6 +74,38 @@ function SelectionDetails(props: ISelectionDetailsProps) {
         console.log(selection)
     }
 
+    const addToFavorites = () => {
+        if (user) {
+            dispatch(addFavorite(selection))
+            FavoritesService.addFavorite(user, selection);
+        } else {
+            navigate('/login')
+        }
+    }
+
+    const removeFromFavorites = () => {
+        if(user) {
+            dispatch(removeFavorite(selection))
+            FavoritesService.removeFavorite(user.id, selection.imdbID);
+        }
+    }
+
+    const addSelectionToWatchlist = () => {
+        if (user) {
+            dispatch(addToWatchlist(selection))
+            WatchlistService.addToWatchlist(user, selection);
+        } else {
+            navigate('/login')
+        }
+    }
+
+    const removeSelectionFromWatchlist = () => {
+        if(user) {
+            dispatch(removeFromWatchlist(selection))
+            WatchlistService.removeFromWatchlist(user.id, selection.imdbID);
+        }
+    }
+
     return (
         <Dialog PaperProps={{
                     style: {
@@ -117,18 +151,18 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                         <Box sx={{display: 'flex'}}>
                             <Box sx={{display: 'flex', alignSelf:'center', paddingRight: 3}} >
                                 {favorites.some(favorite => favorite.imdbID === selection.imdbID) ? 
-                                <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => dispatch(removeFavorite(selection))} /> :
-                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => user.id ? dispatch(addFavorite(selection)) : navigate('/login')} /> 
+                                <FavoriteIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => removeFromFavorites()} /> :
+                                <FavoriteBorderOutlinedIcon fontSize="large" sx={{color: pink[400], marginLeft: 2, marginRight: 1}} onClick={() => addToFavorites()} /> 
                                 }
                                 <Typography variant="h5" sx={{color: pink[400], marginRight:.5}}>Favorite</Typography>
                             </Box>
                             <Box sx={{paddingRight: 1}}>
                             {watchlist.some(watchlistItem => watchlistItem.imdbID === selection.imdbID) ?
-                                 <Box sx={{display:"flex"}} onClick={() => dispatch(removeFromWatchlist(selection))}>
+                                 <Box sx={{display:"flex"}} onClick={() => removeSelectionFromWatchlist()}>
                                     <BookmarkRemoveIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
                                     <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >Watchlist</Typography> 
                                 </Box> :
-                                <Box sx={{display:"flex"}} onClick={() => user.id ? dispatch(addToWatchlist(selection)) : navigate('/login')}>
+                                <Box sx={{display:"flex"}} onClick={() => addSelectionToWatchlist()}>
                                     <BookmarkAddOutlinedIcon fontSize="large" color="info" sx={{alignSelf:'center'}}/>
                                     <Typography variant="h5" color="info" sx={{padding: 1, marginRight: 2,color: blue[400]}} >
                                         Watchlist</Typography> 
