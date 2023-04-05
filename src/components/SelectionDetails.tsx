@@ -72,7 +72,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
     }
 
     const addToFavorites = () => {
-        if (user) {
+        if (user.id) {
             dispatch(addFavorite(selection))
             FavoritesService.addFavorite(user, selection);
         } else {
@@ -120,11 +120,9 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                 }}
                 open={open ? open : false} 
                 fullScreen={true}
-                sx={{padding: 2, marginTop: 10}}>
-            <AppBar sx={{minHeight:{ xs: '100px', md: '150px', lg: '150px' }, backgroundColor:`${theme.palette.background.default}`}}>
-                <CancelIcon onClick={() => handleClose()} color='primary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:4,cursor:"pointer"}} />
-            </AppBar>
-            <Typography variant="h3" color='primary' sx={{padding: 2, paddingTop:10}}>{selection.Title != "N/A" ? selection.Title : 'Title Not Available'}</Typography>
+                sx={{padding: 2, marginTop: 0}}>
+            <CancelIcon onClick={() => handleClose()} color='primary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:4,cursor:"pointer"}} />
+            <Typography variant="h3" color='primary' sx={{padding: 2, paddingTop:0}}>{selection.Title != "N/A" ? selection.Title : 'Title Not Available'}</Typography>
             <Box sx={{display: 'flex', flexWrap:"wrap", justifyContent: "space-between"}}>
                 <Typography variant="h6" color='primary' sx={{padding: 2}}>
                     {`${selection.Type != "N/A" ? selection.Type: 'Type:N/A'} · ${selection.Year != "N/A" ? selection.Year : 'Year:N/A'} · ${selection.Rated != "N/A" ? selection.Rated : 'Rated:N/A'} · ${selection.Runtime != "N/A" ? selection.Runtime : 'Runtime:N/A'}` }</Typography>

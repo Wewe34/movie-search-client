@@ -16,6 +16,7 @@ function SignIn() {
             <GoogleLogin
             onSuccess={credentialResponse => {
                 console.log(credentialResponse);
+                window.sessionStorage.setItem('authToken', JSON.stringify(credentialResponse));
                 const user : Credentials = jwtDecode(credentialResponse.credential as string);
                 dispatch(signInUser({id: user.sub, name: user.given_name}));
                 console.log(user)
