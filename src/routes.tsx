@@ -8,7 +8,6 @@ import Watchlist from './components/Watchlist';
 import SignIn from './components/SignIn';
 import {useAppSelector} from './store/hooks';
 import Home from './components/Home';
-import NavBar from './components/NavBar';
 import SearchLists from './components/SearchLists';
 
 

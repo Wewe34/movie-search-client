@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { 
     AppBar, 
     Button, 
@@ -14,11 +14,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HamburgerDrawer from "./HamburgerDrawer";
 import SearchLists from "./SearchLists";
-import { createSearchParams, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { signOutUser, userSearchInput } from "../store/reducers/user";
 import { red } from "@mui/material/colors";
-import Home from "./Home";
+
 
 
 
@@ -38,8 +38,6 @@ function NavBar() {
     const user = useAppSelector((state) => state.user.user);
     const searchValue = useAppSelector((state) => state.user.searchInput);
     const [results, setResults] = useState<IResults[]>([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const query = searchParams.get('q') || '';
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -47,7 +45,7 @@ function NavBar() {
     const smallDevice = useMediaQuery("(max-width:600px)");
 
 
-    const getMovies = async (event:any) => {
+    const getMovies = async () => {
         
         try {
             if (searchValue.length >= 3) {  
@@ -58,7 +56,7 @@ function NavBar() {
                     q: `${searchValue}`
                 }).toString()
             });
-            
+
             const response = await fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_APIKEY}`);
             const data = await response.json();
             if (data.Search.length > 0) {
@@ -82,6 +80,7 @@ function NavBar() {
 
     const signOut = () => {
         dispatch(signOutUser());
+        window.sessionStorage.removeItem('authToken');
         navigate('/');
     }
 
@@ -91,9 +90,8 @@ function NavBar() {
 
     window.onpopstate = () => {
         navigate('/');
-      }
-    
-    
+    }
+
 
     return (
         <Box sx={{ flexGrow: 1, maxWidth: '100%'}}>
