@@ -9,6 +9,7 @@ import SignIn from './components/SignIn';
 import {useAppSelector} from './store/hooks';
 import Home from './components/Home';
 import NavBar from './components/NavBar';
+import SearchLists from './components/SearchLists';
 
 
   
@@ -18,7 +19,8 @@ function Routes() {
     
     return (
         <Switch>
-            <Route path='/' element={<NavBar />}/>
+            <Route path='/' element={<Home />}/>
+            <Route path={`/search`} element={<SearchLists list={[]} />} />
             <Route path='/login' element={user.user.id.length ? <Navigate to="/"/> : <SignIn />}/>
             <Route path='/favorites' element={user.user.id.length ? <Favorites /> : <Navigate to="/login" />}/>
             <Route path='/watchlist' element={user.user.id.length ? <Watchlist /> : <Navigate to="/login" />}/>

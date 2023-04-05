@@ -20,6 +20,7 @@ function App() {
           body: { backgroundColor: `${theme.palette.background.default}`},
         }}
       />
+      <NavBar />
       <Routes />
       <Footer />
     </ThemeProvider>

@@ -5,6 +5,7 @@ import SelectionDetails, { ISelectionDetails } from "./SelectionDetails";
 import { Selection } from "../models/selection";
 import { red, yellow } from "@mui/material/colors";
 import MovieStripTape from "./MovieStripTape";
+import { useAppSelector } from "../store/hooks";
 
 
 
@@ -15,6 +16,7 @@ interface IListProps {
 function SearchLists(props: IListProps) {
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
+    const user = useAppSelector((state) => state.user);
     let {list} = props;
 
     const getSelectionById = async (imdbID: string) => {
@@ -38,9 +40,9 @@ function SearchLists(props: IListProps) {
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
 
                     {list.filter((film) => film.Type === 'movie').map((movie:any, index: number) => {
-                               return <Box sx={{}}>
+                               return <Box key={index}>
                                         <MovieStripTape />
-                                        <Box key={index} sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(movie.imdbID)}>
+                                        <Box sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(movie.imdbID)}>
                                                     <Box component="img"
                                                         sx={{
                                                         maxHeight: { xs: 250},
@@ -65,9 +67,9 @@ function SearchLists(props: IListProps) {
                 <Typography variant="h4" color='primary' fontWeight={'bold'} sx={{paddingY:3, paddingLeft:2}} >Series</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
                     {list.filter((film) => film.Type === 'series').map((series:any, index: number) => {
-                          return <Box sx={{}}>
+                          return <Box key={index}>
                                     <MovieStripTape />
-                                    <Box key={index} sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(series.imdbID)}>
+                                    <Box sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(series.imdbID)}>
                                                 <Box component="img"
                                                     sx={{
                                                     maxHeight: { xs: 250},
@@ -92,9 +94,9 @@ function SearchLists(props: IListProps) {
                 <Typography variant="h4" color='primary' fontWeight={'bold'} sx={{paddingY:3, paddingLeft:2}} >Episodes</Typography>
                 <Box sx={{display: 'flex', overflowX:'auto'}}>
                     {list.filter((film) => film.Type === 'episode').map((episode:any, index: number) => {
-                        return <Box sx={{}}>
+                        return <Box key={index} >
                                     <MovieStripTape />
-                                    <Box key={index} sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(episode.imdbID)}>
+                                    <Box sx={{display:"flex", flexDirection:"column", padding: 2, backgroundColor:'black',cursor:"pointer", height: '350px'}} onClick={() => getSelectionById(episode.imdbID)}>
                                                 <Box component="img"
                                                     sx={{
                                                     maxHeight: { xs: 250},

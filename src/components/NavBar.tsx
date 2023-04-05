@@ -14,11 +14,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Cancel';
 import HamburgerDrawer from "./HamburgerDrawer";
 import SearchLists from "./SearchLists";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { signOutUser, userSearchInput } from "../store/reducers/user";
 import { red } from "@mui/material/colors";
 import Home from "./Home";
+
 
 
 export interface IResults {
@@ -33,27 +34,42 @@ function NavBar() {
     const theme = useTheme();
     const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState<boolean>(false);
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+    const [userInputError, setUserInputError] = useState<boolean>(false);
     const user = useAppSelector((state) => state.user.user);
     const searchValue = useAppSelector((state) => state.user.searchInput);
-    const [films, setFilms] = useState<{movies: IResults[], series: IResults[], episodes: IResults[]}>({movies: [], series: [], episodes: []});
     const [results, setResults] = useState<IResults[]>([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.get('q') || '';
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+
     const smallDevice = useMediaQuery("(max-width:600px)");
 
+
     const getMovies = async (event:any) => {
-        event.preventDefault();
+        
         try {
+            if (searchValue.length >= 3) {  
+            setUserInputError(false);
+            navigate({
+                pathname: "search",
+                search: createSearchParams({
+                    q: `${searchValue}`
+                }).toString()
+            });
+            
             const response = await fetch(`https://www.omdbapi.com/?s=${searchValue}&apikey=${process.env.REACT_APP_APIKEY}`);
             const data = await response.json();
-            setResults(data.Search);
-            // if (data.Search && data.Search.length > 0) {
-            //     setResults(data.Search);
-            //     let typeMovie = results.filter((movie: IResults) => movie.Type === 'movie');
-            //     let typeSeries = results.filter((series: IResults) => series.Type === 'series');
-            //     let typeEpisode = results.filter((episode: IResults) => episode.Type === 'episode');
-            //     setFilms({movies: typeMovie, series: typeSeries, episodes: typeEpisode})
-            // }     
+            if (data.Search.length > 0) {
+                setResults(data.Search); 
+                
+            }
+             
+            } else {
+                setUserInputError(true);
+                setResults([])
+            }    
         } catch (error) {
             throw error;
         }
@@ -70,9 +86,13 @@ function NavBar() {
     }
 
     const handleChange = (event: {target: {value: string}}) => {
-        navigate('/');
         dispatch(userSearchInput(event.target.value))
     }
+
+    window.onpopstate = () => {
+        navigate('/');
+      }
+    
     
 
     return (
@@ -81,10 +101,11 @@ function NavBar() {
                 {showSmallDeviceSearch && smallDevice ? 
                 <Box sx={{display: 'flex'}}>
                     <TextField
-                        value={searchValue}
+                        value={'hi'}
                         placeholder="Search"
                         sx={{flexGrow: 4, mx: 2, my: 2, backgroundColor: `${theme.palette.primary.main}`, borderRadius: 2, minWidth:'200px'}}
                         onChange={(event) => handleChange(event)} /> 
+                    <Button  sx={{color: `${red[900]}`, backgroundColor:`whitesmoke`, height:'55px', marginTop:'17px', cursor:'pointer'}} onClick={getMovies}>Search</Button>
                     <CancelIcon onClick={() => handleCancelSmallDeviceSearch()} color='primary' fontSize='large' sx={{flexGrow: 2, alignSelf: 'center'}} />
                 </Box> :
                 <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
@@ -119,7 +140,8 @@ function NavBar() {
                             onChange={(event) => handleChange(event)}
                         />
                     }
-                    <Button  sx={{color: `${red[900]}`, backgroundColor:`whitesmoke`, height:'55px', marginTop:'17px', cursor:'pointer'}} onClick={getMovies}>Search</Button>
+                    {! smallDevice ? 
+                    <Button  sx={{color: `${red[900]}`, backgroundColor:`whitesmoke`, height:'55px', marginTop:'17px', cursor:'pointer'}} onClick={getMovies}>Search</Button> : ''}
                     {!user.id ? 
                      <Button sx={{flexGrow: 1, color: '#fff'}} onClick={() => navigate('/login') }>Sign In</Button> :
                      <Button sx={{flexGrow: 1, color: '#fff'}} onClick={() => signOut() }>Sign Out</Button> }  
@@ -127,8 +149,11 @@ function NavBar() {
                 </Toolbar>}
             </AppBar>
             <Box>
-                {searchValue.length ? <SearchLists list={results} /> : <Home/>}
-                
+                <>
+                 {userInputError ? 
+                 <Typography sx={{textAlign:'center'}}color="secondary" variant="body1" margin={5}>**Please input 3 or more characters to search movies.</Typography> : ''}       
+                {location.pathname === '/search'  ? <SearchLists list={results} /> : ''}
+                </>
             </Box>
         </Box>
     )

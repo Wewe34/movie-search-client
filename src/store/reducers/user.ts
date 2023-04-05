@@ -7,7 +7,8 @@ interface UserState {
     id: string,
     name: string
   },
-  searchInput: string
+  searchInput: string,
+  searchHistory: string[]
 }
 
 const initialState: UserState = {
@@ -15,7 +16,8 @@ const initialState: UserState = {
     id: '',
     name: ''
   },
-  searchInput: ''
+  searchInput: '',
+  searchHistory: []
 }
 
 export const userSlice = createSlice({
@@ -25,6 +27,9 @@ export const userSlice = createSlice({
     userSearchInput: (state, action: PayloadAction<string>) => {
         state.searchInput = action.payload;
     },
+    userSearchHistory: (state, action: PayloadAction<string>) => {
+      state.searchHistory.push(action.payload);
+  },
     signInUser: (state, action: PayloadAction<User>) => {
         state.user = action.payload;
     },
