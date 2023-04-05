@@ -9,6 +9,7 @@ import { Credentials } from './models/credientials';
 import jwtDecode from 'jwt-decode';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { signInUser } from './store/reducers/user';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
@@ -16,8 +17,10 @@ import { signInUser } from './store/reducers/user';
 function App() {
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    navigate('/');
     const authToken = window.sessionStorage.getItem('authToken');
     
     if (authToken) {

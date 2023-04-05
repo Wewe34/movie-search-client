@@ -72,7 +72,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
     }
 
     const addToFavorites = () => {
-        if (user) {
+        if (user.id) {
             dispatch(addFavorite(selection))
             FavoritesService.addFavorite(user, selection);
         } else {

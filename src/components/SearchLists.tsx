@@ -54,7 +54,7 @@ function SearchLists(props: IListProps) {
                                                         }}
                                                         src={movie.Poster != "N/A" ? movie.Poster : 'no-poster-available.jpeg'}
                                                     />
-                                                    <Typography fontWeight={'bold'} sx={{maxWidth: '135px'}} color="primary">{movie.Title}</Typography>
+                                                    <Typography fontWeight={'bold'} sx={{maxWidth: '135px'}} color="primary">{`${movie.Title.slice(0,50)}${movie.Title.length >= 50 ? '...' : ''}`}</Typography>
                                                     <Typography color="primary">{movie.Year}</Typography>
                                         </Box>
                                         <MovieStripTape />
