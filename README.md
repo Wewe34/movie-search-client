@@ -48,18 +48,22 @@ There are two repositories (client and server) to be run concurrently.
 
 3. Create an .env file and add the following:
     *  REACT_APP_APIKEY={yourApiKeyHere}
+    
+4. `npm install`
 
-4. Run `npm start`
+5. Run `npm start`
 
-5. `git clone https://github.com/Wewe34/movie-search-server.git`
+6. `git clone https://github.com/Wewe34/movie-search-server.git`
 
-6. Create an .env file  and add the following:
+7. Create an .env file  and add the following:
     * MONGO_USERNAME=cassiebribricodes
     * MONGO_PASSWORD=
     * MONGO_DATABASE=movie_search
     * MONGO_CLUSTER=@cluster34.ljzpkl2.mongodb.net/
     * NODE_ENV=DEV
     
-7. Start another instance and Run `npm start` 
+8. `npm install`
+
+9. Start another instance and Run `npm start` 
 
 
