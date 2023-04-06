@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { 
     AppBar, 
     Button, 
@@ -31,20 +31,19 @@ export interface IResults {
 }
 
 function NavBar() {
-    const theme = useTheme();
+    const user = useAppSelector((state) => state.user.user);
+    const searchValue = useAppSelector((state) => state.user.searchInput);
     const [showSmallDeviceSearch, setShowSmallDeviceSearch] = useState<boolean>(false);
     const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
     const [userInputError, setUserInputError] = useState<boolean>(false);
     const [noResultsFound, setNoResultsFound] = useState<boolean>(false);
-    const user = useAppSelector((state) => state.user.user);
-    const searchValue = useAppSelector((state) => state.user.searchInput);
     const [results, setResults] = useState<IResults[]>([]);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const theme = useTheme();
 
     const smallDevice = useMediaQuery("(max-width:600px)");
-    console.log(noResultsFound)
 
     const getMovies = async () => {
         

@@ -11,9 +11,9 @@ import WatchlistPdfDocument from "./WatchlistPdfDocument";
 function Watchlist() {
 
     const watchlist = useAppSelector((state) => state.watchlist.watchlistList);
+    const user = useAppSelector((state) => state.user.user);
     const [selection, setSelection] = useState<ISelectionDetails>(new Selection());
     const [openSelection, setOpenSelection] = useState<boolean>(false);
-    const user = useAppSelector((state) => state.user.user);
     const dispatch = useAppDispatch();
 
     useEffect(() => {

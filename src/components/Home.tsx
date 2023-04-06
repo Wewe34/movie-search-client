@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
 import React from "react";
+import { Box, Typography } from "@mui/material";
 import { useAppSelector } from "../store/hooks";
-import user from "../store/reducers/user";
+
 
 function Home() {
     const user = useAppSelector((state) => state.user.user);

@@ -1,9 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { Box, Divider, Drawer, Typography } from "@mui/material";
+import React, { Dispatch, SetStateAction } from "react";
+import { Box, Drawer, Typography } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 interface IHamburgerDrawerProps {

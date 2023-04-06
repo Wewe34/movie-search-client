@@ -7,9 +7,9 @@ import Routes from './routes';
 import Footer from './components/Footer';
 import { Credentials } from './models/credientials';
 import jwtDecode from 'jwt-decode';
-import { useAppDispatch, useAppSelector } from './store/hooks';
+import { useAppDispatch} from './store/hooks';
 import { signInUser } from './store/reducers/user';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -27,6 +27,7 @@ function App() {
       const user : Credentials = jwtDecode(JSON.parse(authToken).credential as string);
       dispatch(signInUser({id: user.sub, name: user.given_name}));
     } 
+
   },[])
 
   return (

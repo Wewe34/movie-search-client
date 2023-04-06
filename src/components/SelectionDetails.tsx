@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import { useAppSelector, useAppDispatch } from '../store/hooks';
 import { Typography, Dialog, useTheme, Button, AppBar } from "@mui/material";
 import { Box } from "@mui/system";
@@ -121,14 +121,32 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                 open={open ? open : false} 
                 fullScreen={true}
                 sx={{padding: 2, marginTop: 0}}>
-            <CancelIcon onClick={() => handleClose()} color='primary' fontSize='large' sx={{alignSelf: 'flex-end', marginRight:2, marginTop:4,cursor:"pointer"}} />
-            <Typography variant="h3" color='primary' sx={{padding: 2, paddingTop:0}}>{selection.Title != "N/A" ? selection.Title : 'Title Not Available'}</Typography>
+            <CancelIcon 
+                onClick={() => handleClose()} 
+                color='primary' 
+                fontSize='large' 
+                sx={{alignSelf: 'flex-end', marginRight:2, marginTop:4,cursor:"pointer"}} />
+            <Typography 
+                variant="h3" 
+                color='primary' 
+                sx={{padding: 2, paddingTop:0}}>
+                    {selection.Title != "N/A" ? selection.Title : 'Title Not Available'}
+            </Typography>
             <Box sx={{display: 'flex', flexWrap:"wrap", justifyContent: "space-between"}}>
                 <Typography variant="h6" color='primary' sx={{padding: 2}}>
-                    {`${selection.Type != "N/A" ? selection.Type: 'Type:N/A'} · ${selection.Year != "N/A" ? selection.Year : 'Year:N/A'} · ${selection.Rated != "N/A" ? selection.Rated : 'Rated:N/A'} · ${selection.Runtime != "N/A" ? selection.Runtime : 'Runtime:N/A'}` }</Typography>
+                    {`${selection.Type != "N/A" ? 
+                        selection.Type: 'Type:N/A'} · ${selection.Year != "N/A" ?
+                        selection.Year : 'Year:N/A'} · ${selection.Rated != "N/A" ? 
+                        selection.Rated : 'Rated:N/A'} · ${selection.Runtime != "N/A" ? 
+                        selection.Runtime : 'Runtime:N/A'}` }
+                </Typography>
                 <Box sx={{display:"flex", paddingX: 2, paddingBottom: 2}}>
                     {selection.Genre != "N/A" ? selection.Genre.split(', ').map((genre, index) => {
-                        return <Typography color="secondary" key={index} sx={{border: `solid 1px ${red[900]}`, height:"fit-content", padding: 1, borderRadius: 2, marginRight: 2}}>{genre}</Typography>
+                        return <Typography 
+                                    color="secondary" 
+                                    key={index} 
+                                    sx={{border: `solid 1px ${red[900]}`, height:"fit-content", padding: 1, borderRadius: 2, marginRight: 2}}>{genre}
+                                </Typography>
                     }): ''}
                 </Box>
             </Box>
@@ -148,9 +166,15 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                     <Box sx={{display: "flex", flexWrap:"wrap"}}>
                         <Box sx={{display: 'flex', paddingRight: 1, paddingTop:2, justifyContent:'center'}}>
                             <Box sx={{display: "flex", paddingRight: 2, paddingLeft: 2}}>
-                                <Typography fontSize={20} fontWeight="bolder" sx={{marginRight:2,alignSelf: 'center', color:'black', backgroundColor:`${yellow[600]}`, paddingY:.1, paddingX:.5, borderRadius:1 }}>IMDb</Typography>
+                                <Typography 
+                                    fontSize={20} 
+                                    fontWeight="bolder" 
+                                    sx={{marginRight:2,alignSelf: 'center', color:'black', backgroundColor:`${yellow[600]}`, paddingY:.1, paddingX:.5, borderRadius:1 }}>IMDb</Typography>
                                 <Box sx={{display: "flex", alignSelf: 'center'}}>
-                                    <Typography variant="h5" color="primary" sx={{marginRight:.5}}>{selection.Ratings.length ? selection.Ratings[0].Value : 'Rating:N/A'}</Typography>
+                                    <Typography 
+                                        variant="h5" 
+                                        color="primary" 
+                                        sx={{marginRight:.5}}>{selection.Ratings.length ? selection.Ratings[0].Value : 'Rating:N/A'}</Typography>
                                 </Box>
                             </Box>
                         </Box>
@@ -177,9 +201,7 @@ function SelectionDetails(props: ISelectionDetailsProps) {
                         </Box>
                     </Box>
                 </Box>
-
             </Box>
-
             <Box sx={{paddingY: 5, paddingX: 2, color:'white'}}>
                 <Typography>{`Top Cast: ${selection.Actors}`}</Typography>
                 <Typography>{`Directors: ${selection.Director}`}</Typography>

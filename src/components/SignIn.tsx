@@ -5,11 +5,13 @@ import jwtDecode from "jwt-decode";
 import {useAppDispatch} from '../store/hooks';
 import { signInUser } from "../store/reducers/user";
 import { Credentials } from "../models/credientials";
+import { useNavigate } from "react-router-dom";
 
 
 
 function SignIn() {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     return (
         <Box minHeight={'60vh'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
             <Typography color="primary" variant="h5" paddingBottom={7}>Sign in with Google</Typography>
@@ -23,6 +25,7 @@ function SignIn() {
             }}
             onError={() => {
                 console.log('Signin Failed');
+                navigate('/');
             }}
             useOneTap
             />;
